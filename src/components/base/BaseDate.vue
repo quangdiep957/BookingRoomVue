@@ -1,39 +1,42 @@
 <template>
-  <DxDateBox
-    class="ms-date-box"
-    :styling-mode="stylingMode"
-    :label-mode="labelMode"
-    :width="'100%'"
-    drop-down-button-template="iconDropdown"
-    :value="value"
-    :display-format="displayFormat"
-    placeholder="Chọn ngày và tháng"
-    label="Tiêu đề"
-    @value-changed="onValueChanged"
-  >
-    <DxValidator>
-      <DxRequiredRule />
-    </DxValidator>
-    <template #iconDropdown="{}">
-      <div class="icon-sibar icon-date misa-icon-24"></div>
-    </template>
-  </DxDateBox>
+  <div class="div">
+    <el-tooltip :disabled="disabled" :content="content" placement="top">
+      <DxDateBox
+        class="ms-date-box"
+        :styling-mode="stylingMode"
+        :label-mode="labelMode"
+        :width="'100%'"
+        drop-down-button-template="iconDropdown"
+        :value="value"
+        :display-format="displayFormat"
+        placeholder="Chọn ngày và tháng"
+        label="Tiêu đề"
+        @value-changed="onValueChanged"
+        :class="['ms-date-box', { errorDate: isError }]"
+      >
+        <template #iconDropdown="{}">
+          <div class="icon-sibar icon-date misa-icon-24"></div>
+        </template>
+      </DxDateBox>
+    </el-tooltip>
+  </div>
 </template>
 
 <script>
-import { DxValidator, DxRequiredRule } from 'devextreme-vue/validator'
 import DxDateBox from 'devextreme-vue/date-box'
 export default {
   name: 'MsDate',
   components: {
     DxDateBox,
-    DxValidator,
-    DxRequiredRule,
   },
   props: {
     value: {
       type: [String, Date],
       default: null,
+    },
+    disabled: {
+      type: Boolean,
+      default: true,
     },
     labelMode: {
       type: String,
@@ -52,6 +55,14 @@ export default {
       type: String,
       default: 'dd/MM/yyyy',
       note: 'mode hiển thị loại ngày datebox ',
+    },
+    isError: {
+      type: Boolean,
+      default: false,
+    },
+    content: {
+      type: String,
+      default: '',
     },
   },
   data() {
@@ -76,5 +87,14 @@ export default {
 @import url(../../styles/components/icon.css);
 .icon-sibar.icon-date.misa-icon-24.dx-template-wrapper.dx-button-content {
   margin: 8px 0 0 5px;
+}
+.ms-date-box {
+  border-radius: 3px;
+  border: 1px solid var(--border-color);
+  width: 150px !important;
+}
+.ms-date-box.errorDate {
+  border: 1px solid #f7453b;
+  width: 150px !important;
 }
 </style>

@@ -131,6 +131,7 @@
               @valueFilterRoom="valueFilterRoom"
             ></RoomBookingSetting>
           </div>
+
           <el-tooltip content="Nhập khẩu lịch học" placement="top">
             <div
               v-if="isAdmin"
@@ -139,6 +140,11 @@
               ref="buttonSetting"
             >
               <div class="icon-sibar t-icon-import-excel misa-icon-24"></div>
+            </div>
+          </el-tooltip>
+          <el-tooltip content="Lấy lại dữ liệu" placement="top">
+            <div class="mgl-8" @click="showLoading(true), loadDataBooking()">
+              <div class="icon-sibar icon-refesh misa-icon-24 mgt-8"></div>
             </div>
           </el-tooltip>
         </div>
@@ -164,11 +170,11 @@
         :date-cell-template="dateCellTemplate"
         appointment-template="AppointmentTemplateSlot"
         :on-content-ready="onContentReady"
-        :on-appointment-form-opening="onAppointmentClick"
         :on-cell-click="onCellClick"
         :on-appointment-click="onAppointmentClick"
         resource-cell-template="resourceCellTemplate"
         :groups="['RoomID']"
+        :disabled="isDisabled"
       >
         <DxView
           class="day"
@@ -281,12 +287,16 @@
         :currentPage="pageIndex"
         :startRecord="startRecord"
         :endRecord="endRecord"
+        lableRecord="phòng"
+        lableSumary="Tổng số phòng:"
+        lableTotalInPageRecord="Số phòng/trang"
       ></BasePaging>
     </div>
   </div>
 </template>
 
 <script>
+/* eslint-disable */
 import { DxScheduler, DxResource, DxView } from 'devextreme-vue/scheduler'
 import 'devextreme/dist/css/dx.common.css'
 import 'devextreme/dist/css/dx.light.css'
@@ -371,6 +381,7 @@ export default {
       isShowImportScheduler: false,
       isAdmin: false,
       schedulerConnection: Resource.SchedulerConnection,
+      isDisabled: false,
     }
   },
   computed: {
@@ -529,6 +540,7 @@ export default {
       //   new Date(e.appointmentData.startDate) >= now ? true : false
     },
     onCellClick(e) {
+      e.cancel = true // Hủy bỏ việc hiển thị popup mặc định của DevExtreme
       this.dateBooking = e.cellData.startDate
       this.roomID = e.cellData.groups.RoomID
       this.popupMode = Enum.PopupMode.AddMode
@@ -563,14 +575,13 @@ export default {
           capacityMax: this.filterOption.CapacityMax
             ? this.filterOption.CapacityMax
             : null,
-          pageSize: this.pageSize ? this.pageSize : 20,
+          pageSize: this.pageSize ? this.pageSize : 15,
           pageIndex: this.pageIndex ? this.pageIndex : 1,
         }).then((res) => {
-          debugger
-          ;(this.pageIndex = res.CurrentPage),
-            (this.startRecord = res.startRecord),
-            (this.endRecord = res.endRecord),
-            (this.totalRecord = res.totalRecord),
+          ;(this.pageIndex = res.data.CurrentPage),
+            (this.startRecord = res.data.startRecord),
+            (this.endRecord = res.data.endRecord),
+            (this.totalRecord = res.data.totalRecord),
             (this.dataSource = res.data.dataBooking || [])
           this.lstRoom = res.data.dataRoom || []
           if (res.data.option == 1 || this.isTypeDay) {

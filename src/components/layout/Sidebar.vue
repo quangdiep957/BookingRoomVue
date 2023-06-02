@@ -41,7 +41,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import logoURL from '../../assets/logoUniversity.png'
+import logoURL from '../../assets/logo1.png'
 const MenuItems = [
   {
     itemLink: '/overview',

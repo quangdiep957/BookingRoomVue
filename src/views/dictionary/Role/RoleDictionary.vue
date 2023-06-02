@@ -3,23 +3,31 @@
     <!-- Begin body -->
     <div id="bd-role">
       <div class="filter-options">
-        <DxTextBox
-          placeholder="Tìm kiếm"
-          class="input-field"
-          v-model:value="searchText"
-          height="34"
+        <base-input
+          class="misa-input-wrap flex w-240 mg-12"
+          placeholder="Tìm kiếm vai trò"
+          v-model="dataComponent.userFilter"
+          @keyup="filterUser"
+          classInput="misa-input"
         >
-          <div class="input-field-icon icon-search"></div>
-        </DxTextBox>
-        <DxButton
-          class="btn-add"
-          icon="add"
-          :width="130"
-          text="Thêm mới"
-          type="default"
-          styling-mode="contained"
-          @click="addRole"
-        />
+          <div class="misa-icon misa-icon-search misa-icon-24"></div>
+        </base-input>
+        <div class="btn-add flex">
+          <DxButton
+            class=""
+            icon="add"
+            :width="130"
+            text="Thêm mới"
+            type="default"
+            styling-mode="contained"
+            @click="addRole"
+          />
+          <el-tooltip content="Lấy lại dữ liệu" placement="top">
+            <div class="mgl-16" @click="showLoading(true), getData()">
+              <div class="icon-sibar icon-refesh misa-icon-24 mgt-8"></div>
+            </div>
+          </el-tooltip>
+        </div>
       </div>
       <!-- Begin table -->
       <div class="misa-tabble">
@@ -90,8 +98,8 @@ import { mapState } from 'vuex'
 import BuidingDictionaryDetail from '../Role/RoleDictionaryDetailPopup.vue'
 import RoleApi from '@/apis/RoleApi'
 import DeleteRolePopup from '../Role/DeleteRolePopup.vue'
-import DxTextBox from 'devextreme-vue/text-box'
 import BaseLoading from '@/components/base/BaseLoading.vue'
+import BaseInput from '@/components/base/BaseInput.vue'
 export default {
   components: {
     DxButton,
@@ -100,8 +108,8 @@ export default {
     BaseTable,
     BuidingDictionaryDetail,
     DeleteRolePopup,
-    DxTextBox,
     BaseLoading,
+    BaseInput,
   },
 
   setup() {
@@ -151,6 +159,10 @@ export default {
       isShowForm: false,
       /**Biến trạng thái popup */
       popupMode: 0,
+      userFilter: '',
+      RoleID: '',
+      /**Timout của tìm kiếm */
+      timeout: 1000,
     })
     /**
      * Hiển thị popup
@@ -271,7 +283,7 @@ export default {
         RoleApi.getPaging({
           pageIndex: dataComponent.pageIndex,
           pageSize: dataComponent.pageSize,
-          keyword: '',
+          keyword: dataComponent.userFilter,
         }).then((res) => {
           dataComponent.dataSource = res.data.Data || []
           dataComponent.pageIndex = res.data.CurrentPage
@@ -319,6 +331,12 @@ export default {
       dataComponent.popupVisible = true
     }
 
+    function filterUser() {
+      clearTimeout(dataComponent.timeout)
+      dataComponent.timeout = setTimeout(() => {
+        getData()
+      }, 1000)
+    }
     return {
       dataComponent,
       getData,
@@ -335,6 +353,7 @@ export default {
       showLoading,
       showFormDetail,
       onClickClosePopup,
+      filterUser,
     }
   },
   computed: {
@@ -394,7 +413,7 @@ export default {
   }
 }
 #bd-role {
-  height: calc(100vh - 90px);
+  height: calc(100vh - 72px);
   background: white;
   padding: 20px;
 }

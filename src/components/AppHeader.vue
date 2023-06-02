@@ -49,21 +49,21 @@
                     </div>
                   </div>
                   <div>
-                    <small class="text-medium-emphasis">Bùi Quang Điệp</small
+                    <small class="text-medium-emphasis"></small
                     ><small class="text-medium-emphasis float-end mt-1">{{
                       timeAgo(item.time)
                     }}</small>
                   </div>
                   <div class="text-truncate font-weight-bold">
                     <span class="fa fa-exclamation text-danger"></span>
-                    Booking
+                    Đặt phòng
                   </div>
                   <div class="small text-medium-emphasis text-truncate">
                     {{ item.notify }}
                   </div>
                 </div></a
               ><a class="dropdown-item text-center border-top" href="#"
-                ><strong>View all messages</strong></a
+                ><strong>Xem tất cả thông báo</strong></a
               >
             </div>
           </CNavLink>
@@ -148,7 +148,6 @@ export default {
       }
     },
     callNotify() {
-      debugger
       // lấy thông tin đăng nhập
       const user = JSON.parse(localStorage.getItem('user'))
       if (user && user.UserID) {

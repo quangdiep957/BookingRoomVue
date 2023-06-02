@@ -21,6 +21,9 @@
 .mgt-8 {
   margin-top: 8px;
 }
+.mgl-8 {
+  margin-left: 8px;
+}
 .mgt-10 {
   margin-top: 10px;
 }
@@ -46,6 +49,10 @@ button {
 .w-86 {
   width: 86px;
   min-width: 86px;
+}
+.w-240 {
+  width: 240px;
+  min-width: 240px;
 }
 .required {
   color: #e54848;

@@ -104,6 +104,10 @@
                 lable=""
                 :tabindex="3"
                 :value="bookingRoomData.StartDate"
+                :min="currentDate"
+                :disabled="disableStartDate"
+                :isError="isErrorStartDate"
+                :content="contentErrStartDate"
               ></BaseDate>
             </div>
             <div class="t-row flex">
@@ -117,6 +121,10 @@
                 lable=""
                 :tabindex="4"
                 :value="bookingRoomData.EndDate"
+                :min="currentDate"
+                :disabled="disableEndDate"
+                :isError="isErrorEndDate"
+                :content="contentErrEndDate"
               ></BaseDate>
             </div>
 
@@ -126,6 +134,7 @@
                 :dataSource="dataTime"
                 :height="34"
                 :tabindex="5"
+                :required="true"
                 classDropdownbox="drop-down-utc"
                 optionName="TimeSlotName"
                 optionValue="TimeSlotID"
@@ -254,7 +263,11 @@
         <div class="t-button-footer">
           <div
             class="t--is-admin flex"
-            v-if="popupMode == Enum.PopupMode.PendingMode && isAdmin"
+            v-if="
+              popupMode == Enum.PopupMode.PendingMode &&
+              popupMode != Enum.PopupMode.HistoryMode &&
+              isAdmin
+            "
           >
             <BaseButton
               v-if="popupMode == Enum.PopupMode.PendingMode"
@@ -418,6 +431,13 @@ export default {
       isAdmin: false,
       /** Biến show loading: true- show, false - hide*/
       isShowLoading: false,
+      currentDate: new Date(),
+      isErrorEndDate: false,
+      isErrorStartDate: false,
+      disableStartDate: true,
+      disableEndDate: true,
+      contentErrStartDate: 'Ngày bắt đầu không được lớn hơn ngày kết thúc',
+      contentErrEndDate: 'Ngày kết thúc không được nhỏ hơn ngày bắt đầu',
     }
   },
 
@@ -453,8 +473,43 @@ export default {
      */
     onValueChangeTimeSlot(values) {
       if (values) {
+        // var dates = []
         let ids = ''
+        // let year = this.bookingRoomData.StartDate.getYear()
+        // let month = this.bookingRoomData.StartDate.getMonth() + 1
+        // let day = this.bookingRoomData.StartDate.getDate()
+        // for (let i = 0; i < values.length; i++) {
+        //   let time = this.dataTime.find(
+        //     (x) => x.TimeSlotID == values[i].TimeSlotID,
+        //   )
+        //   switch (time.TimeSlotName) {
+        //     case 1:
+        //       dates.push(new Date(year, month, day, 7))
+        //       break
+        //     case 2:
+        //       dates.push(new Date(year, month, day, 9, 35))
+        //       break
+        //     case 3:
+        //       dates.push(new Date(year, month, day, 13))
+        //       break
+        //     case 4:
+        //       dates.push(new Date(year, month, day, 15, 35))
 
+        //       break
+        //     case 5:
+        //       dates.push(new Date(year, month, day, 18, 5))
+        //       break
+        //     default:
+        //       break
+        //   }
+        // }
+        // dates.forEach((element) => {
+        //   if (new Date() > new Date(element)) {
+        //     this.Error['TimeSlots'] = 'Đã quá thời gian đặt'
+        //     this.validateErrorList.push('TimeSlots')
+        //     return
+        //   }
+        // })
         values?.forEach((element) => {
           ids += '' + element.TimeSlotID.trim() + ','
         })
@@ -532,7 +587,11 @@ export default {
         this.validate(field)
       })
       // Nếu mảng chứa lỗi không chứa lỗi
-      if (this.validateErrorList.length <= 0) {
+      if (
+        this.validateErrorList.length <= 0 &&
+        !this.isErrorEndDate &&
+        !this.isErrorStartDate
+      ) {
         // Thêm mới user
         this.saveData()
       } else {
@@ -750,10 +809,31 @@ export default {
     // cập nhật lại ngày khi chọn lại
     onStartDateChanged(item) {
       this.bookingRoomData.StartDate = item.value
+      if (new Date(this.bookingRoomData.EndDate) < new Date(item.value)) {
+        this.isErrorStartDate = true
+        this.disableStartDate = false
+      } else {
+        this.isErrorStartDate = false
+        this.disableStartDate = true
+        this.isErrorEndDate = false
+        this.disableEndDate = true
+      }
     },
     // cập nhật lại ngày khi chọn lại
     onEndDateChanged(item) {
       this.bookingRoomData.EndDate = item.value
+      if (
+        new Date(this.bookingRoomData.EndDate) <
+        new Date(this.bookingRoomData.StartDate)
+      ) {
+        this.isErrorEndDate = true
+        this.disableEndDate = false
+      } else {
+        this.isErrorEndDate = false
+        this.disableEndDate = true
+        this.isErrorStartDate = false
+        this.disableStartDate = true
+      }
     },
     /**
      * Thực hiện phê duyệt
