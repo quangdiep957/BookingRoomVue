@@ -108,7 +108,7 @@ export default {
     },
     /**
      * Hiển thị popup
-     * PTTAM
+     * bqdiep
      * @param {Boolean} isShow
      */
     showFormDetail(isShow) {

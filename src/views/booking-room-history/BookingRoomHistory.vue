@@ -181,7 +181,7 @@ export default {
     /**
      * Mô tả : Hàm show/hide loading
      * @param {Boolean} isShow true: hiển thị loading, false: ẩn loading
-     * @Createdby: PTTAM
+     * @Createdby: bqdiep
      */
     function showLoading(isShow) {
       dataComponent.isShowLoading = isShow
@@ -195,14 +195,14 @@ export default {
       dataComponent.popupVisible = false
     }
     /** Mô tả: ẩn popup
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      * Created Date: 11-09-2022 08:22:11
      */
     function onClickClosePopup() {
       dataComponent.popupMode = -1
     }
     /** Mô tả: Sự kiện keyup để tìm kiếm lịch
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     function filterBooking() {
       clearTimeout(dataComponent.timeout)
@@ -255,7 +255,7 @@ export default {
     }
     /** Mô tả: Hàm hiển thị popup sửa vai trò của người dùng
      * @param {Object} user đối tượng người dùng
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      * Created Date: 03-09-2022 07:02:41
      */
     function onClickShowViewDetailPopup(id) {

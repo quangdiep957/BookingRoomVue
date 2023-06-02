@@ -5,7 +5,7 @@ class BookingRoomAPI {
 
   /**
    * Mô tả : Lấy toàn bộ dữ liệu phòng ban từ api
-   * @Createdby: PTTAM
+   * @Createdby: bqdiep
    * Created date: 21:33 1/09/2022
    */
   getAll() {
@@ -23,7 +23,7 @@ class BookingRoomAPI {
    * - buildingID
    * - timeSlotID
    * - weekID  - tuần
-   * @Createdby: PTTAM
+   * @Createdby: bqdiep
    */
   async getPaging(param) {
     return await BaseAPIConfig.post(`${this.controller}/pagingScheduler`, param)
@@ -36,7 +36,7 @@ class BookingRoomAPI {
    * - pageSize - sô bản ghi / trang
    * - keyword - từ khóa tìm kiếm
    * - WeekID - Tuần
-   * @Createdby: PTTAM
+   * @Createdby: bqdiep
    */
   async getPagingRequest(param) {
     return await BaseAPIConfig.post(
@@ -50,7 +50,7 @@ class BookingRoomAPI {
    * - pageIndex - trang hiện tại
    * - pageSize - sô bản ghi / trang
    * - keyword - từ khóa tìm kiếm
-   * @Createdby: PTTAM
+   * @Createdby: bqdiep
    */
   async getPagingHistory(param) {
     return await BaseAPIConfig.post(

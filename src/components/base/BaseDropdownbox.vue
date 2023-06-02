@@ -148,7 +148,7 @@ export default {
   },
   methods: {
     /** Mô tả: Focus vào input của dropdown
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     autoFocus() {
       let input = this.$refs['dropdown'].$el.querySelector(
@@ -160,7 +160,7 @@ export default {
       console.log(e)
     },
     /** Mô tả: Gửi sự kiện thay đổi giá trị
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     onValueChange(e) {
       if (e.value) this.$emit('onValueChange', e.value)
@@ -171,14 +171,14 @@ export default {
     },
 
     /** Mô tả: Sự kiện enter
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     handleEnterkey() {
       this.opened = true
     },
 
     /** Mô tả: Gửi sự kiện focus
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     handleFocusIn() {
       this.opened = true
@@ -186,14 +186,14 @@ export default {
     },
     /** Mô tả: Thêm lỗi hoặc bỏ lỗi dropdown
      * @param {string} isErr : valid - không có lỗi, invalid - có lỗi
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     isErrorInput(isErr) {
       this.isError = isErr
     },
 
     /** Mô tả: Hàm validate khi blur vào dropdown
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     validateError() {
       this.opened = false

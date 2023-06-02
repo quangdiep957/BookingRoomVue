@@ -220,7 +220,7 @@ export default {
     /**
      * Mô tả : Sự kiện thay đổi số bản ghi / 1 trang
      * @param {Number} size --  trang
-     * @Createdby: PTTAM
+     * @Createdby: bqdiep
      * Created date: 22:50 03/09/2022
      */
     pageSizeSelected(size) {
@@ -231,7 +231,7 @@ export default {
     /**
      * Mô tả : Gán lại trang hiện tại khi nhận được sự kiện chuyển trang và load lại dữ liệu
      * @param {Number} val trang hiện tại
-     * @Createdby PTTAM
+     * @Createdby bqdiep
      * Created date: 23:52 28/07/2022
      */
     currentPage(val) {
@@ -265,7 +265,7 @@ export default {
 
   /**
    * Thực hiện gọi api để lấy dữ liệu phòng, thiết bị, tòa nhà
-   * PTTAM 02.04.2023
+   * bqdiep 02.04.2023
    */
   async created() {
     try {

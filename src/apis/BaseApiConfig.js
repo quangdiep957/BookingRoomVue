@@ -13,7 +13,7 @@ BaseAPIConfig.interceptors.request.use((config) => {
  * Mô tả : Thực hiện axios chạy api
  * @param
  * @return
- * Created by: PTTAM
+ * Created by: bqdiep
  * Created date: 08:57 1/9/2022
  */
 BaseAPIConfig.interceptors.response.use(

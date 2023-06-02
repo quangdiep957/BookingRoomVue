@@ -190,6 +190,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import Enum from '@/commons/Enum'
 import Resource from '@/commons/Resource'
 import BasePopup from '@/components/base/BasePopup.vue'
@@ -270,7 +271,9 @@ export default {
       booking.length > 1
         ? (this.bookingExists = true)
         : (this.bookingExists = false)
-      return booking.slice(0, 4)
+      return booking
+        .slice(0, 4)
+        .sort((a, b) => a.TimeSlotName.localeCompare(b.TimeSlotName))
     },
     // lấy vị trí x y khi hover
     handleMouseMove(event, booking, popup) {
@@ -461,7 +464,7 @@ export default {
       const days = []
       for (let day = 1; day <= daysInMonth; day++) {
         const date = new Date(year, month, day)
-        const dayOfWeek = date.getDay()
+        const dayOfWeek = date.getDay() - 1
         const momentObj = moment(date)
         const formattedString = momentObj.format('DD/MM')
         days.push({
@@ -582,6 +585,7 @@ export default {
   border-radius: 50%;
   margin-right: 8px;
   margin-top: 5px;
+  cursor: pointer;
 }
 
 .wrap-text {
@@ -629,6 +633,7 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
+  cursor: pointer;
 }
 
 .schedule-cell-inner {
@@ -689,6 +694,8 @@ export default {
 
 .misa-cell-active-group {
   display: flex;
+  pointer-events: auto !important;
+  cursor: pointer;
 }
 
 .misa-cell-active-group:hover {
@@ -763,12 +770,16 @@ thead {
 
 .rowColor.isDisable {
   background-color: #f0f0f3 !important;
+  /* pointer-events: none; */
 }
 
 .rowColor.isDisable :hover {
   background-color: #f0f0f3 !important;
 }
-
+.rowColor.isDisable .schedule-cell:hover {
+  cursor: not-allowed;
+  /* pointer-events: none; */
+}
 .generate {
   height: 100%;
   overflow: auto;

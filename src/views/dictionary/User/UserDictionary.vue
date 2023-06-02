@@ -155,7 +155,7 @@ export default {
 
     /**
      * Header table
-     * PTTAM
+     * bqdiep
      */
     var headerTableUser = [
       {
@@ -209,7 +209,7 @@ export default {
     ]
     /**
      * Hiển thị popup
-     * PTTAM
+     * bqdiep
      * @param {Boolean} isShow
      */
     function showFormDetail(isShow) {
@@ -217,7 +217,7 @@ export default {
     }
     /** Mô tả: Hiển thị popup
      * @param
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     function showPopup(FullName) {
       dataComponent.contentPopup =
@@ -234,7 +234,7 @@ export default {
     /**
      * Mô tả : Hàm show/hide loading
      * @param {Boolean} isShow true: hiển thị loading, false: ẩn loading
-     * @Createdby: PTTAM
+     * @Createdby: bqdiep
      */
     function showLoading(isShow) {
       dataComponent.isShowLoading = isShow
@@ -242,7 +242,7 @@ export default {
     /** Mô tả: Hàm hiển thị popup xóa người dùng
      * @param {string} userId Mã người dùng
      * @param {string} userName Tên người dùng
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      * Created Date: 02-09-2022 14:12:42
      */
     function onClickShowPopupDelete(id) {
@@ -255,7 +255,7 @@ export default {
 
     /** Mô tả: Hàm hiển thị popup sửa vai trò của người dùng
      * @param {Object} user đối tượng người dùng
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      * Created Date: 03-09-2022 07:02:41
      */
     function onClickShowPopupEdit(id) {
@@ -268,7 +268,7 @@ export default {
       showFormDetail(true)
     }
     /** Mô tả: ẩn popup
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      * Created Date: 11-09-2022 08:22:11
      */
     function onClickClosePopup() {
@@ -298,7 +298,7 @@ export default {
     }
     /**
      * Sự kiện thay đổi số bản ghi/trang
-     * PTTAM 09/04/2023
+     * bqdiep 09/04/2023
      */
     const pageSizeSelected = (size) => {
       dataComponent.pageSize = size
@@ -308,7 +308,7 @@ export default {
 
     /**
      * Sự kiện thay đổi số trang
-     * PTTAM 08/04/2023
+     * bqdiep 08/04/2023
      */
     const currentPage = (val) => {
       dataComponent.pageIndex = val

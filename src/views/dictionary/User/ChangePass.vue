@@ -84,14 +84,14 @@ export default {
     /** Mô tả: Gửi sự kiện đóng popup
      * @param
      * @return
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      * Created Date: 06-09-2022 00:09:14
      */
     onClickClosePopup() {
       this.$emit('onClickClosePopup')
     },
     /** Mô tả: Sự kiện nhấn vào nút xóa người dùng
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      * Created Date: 03-09-2022 07:04:16
      */
     async onClickChangePass() {

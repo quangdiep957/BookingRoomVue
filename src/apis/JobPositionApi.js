@@ -5,7 +5,7 @@ class JobPositionAPI {
 
   /**
    * Mô tả : Lấy toàn bộ dữ liệu phòng ban từ api
-   * @Createdby: PTTAM
+   * @Createdby: bqdiep
    */
   getAll() {
     return BaseAPIConfig.get(`${this.controller}/getAll`)

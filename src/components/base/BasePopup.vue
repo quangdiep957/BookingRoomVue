@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     /** Mô tả: Gửi sự kiện đóng popup
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      * Created Date: 11-09-2022 08:08:15
      */
     onClickClosePopup() {

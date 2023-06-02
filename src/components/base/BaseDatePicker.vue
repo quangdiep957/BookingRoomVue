@@ -67,7 +67,7 @@ export default {
     /**
      * Mô tả : Theo dõi sự thay đổi giá trị của ngày
      * @param {Date} valNew Ngày sinh
-     * Created by: PTTAM
+     * Created by: bqdiep
      * Created date: 16:47 21/08/2022
      */
     modelValue(valNew) {
@@ -91,7 +91,7 @@ export default {
      * Mô tả : Sự kiện change: khi thay đổi ngày
      * @param
      * @return
-     * Created by: PTTAM
+     * Created by: bqdiep
      * Created date: 16:48 21/08/2022
      */
     changeDate() {
@@ -104,7 +104,7 @@ export default {
      * Mô tả : Hàm focus vào input date
      * @param
      * @return
-     * Created by: PTTAM
+     * Created by: bqdiep
      */
     autoFocus() {
       this.$refs.date.focus()
@@ -114,7 +114,7 @@ export default {
      * Mô tả : Hàm validate blur của input date
      * @param
      * @return
-     * Created by: PTTAM
+     * Created by: bqdiep
      */
     validateBlur() {
       // if (!Common.validateDate(this.modelValue)) {
@@ -126,7 +126,7 @@ export default {
     /**
      * Mô tả : Hàm thêm hoặc xóa error
      * @param {Boolean} isErr -- true: thêm lỗi, false: xóa lỗi
-     * Created by: PTTAM
+     * Created by: bqdiep
      */
     isErrorDateInput(isErr) {
       this.isErrorDate = isErr

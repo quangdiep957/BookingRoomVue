@@ -63,13 +63,13 @@ export default {
     /** Mô tả: Gửi sự kiện đóng popup
      * @param
      * @return
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     onClickClosePopup() {
       this.$emit('onClickClosePopup')
     },
     /** Mô tả: Sự kiện nhấn vào nút xóa tòa nhà
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     async onClickAcceptDeleteUser() {
       try {

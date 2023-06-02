@@ -5,7 +5,7 @@ class AccountAPI {
 
   /**
    * Mô tả : Lấy toàn bộ dữ liệu phòng ban từ api
-   * @Createdby: PTTAM
+   * @Createdby: bqdiep
    * Created date: 21:33 1/09/2022
    */
   async logIn(user) {
@@ -20,7 +20,7 @@ class AccountAPI {
   /**
    * Mô tả : login bằng google
    * @param {Object} param
-   * @Createdby: PTTAM
+   * @Createdby: bqdiep
    */
   async loginGoogle(param) {
     return await BaseAPIConfig.post(`${this.controller}/loginGoogle`, param)

@@ -140,13 +140,13 @@ export default {
 
   methods: {
     /** Mô tả: Gửi sự kiện đóng form
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     onCloseForm() {
       this.$emit('onCloseForm')
     },
     /** Mô tả: Thực hiện đóng popup
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     onClickClosePopup() {
       this.popupNoticeMode = -1
@@ -162,7 +162,7 @@ export default {
     },
     /**
      * Mô tả : Sự kiện khi focus vào input đầu tiên khi tab index đến item cuối cùng của form
-     * @Createdby: PTTAM
+     * @Createdby: bqdiep
      */
     handleKeyup(e) {
       if (e.key == 'Tab') {
@@ -172,7 +172,7 @@ export default {
     },
     /**
      * Validate
-     * PTTAM
+     * bqdiep
      */
     validate(fieldName) {
       try {
@@ -201,7 +201,7 @@ export default {
     },
     /** Mô tả: xử lý sự kiện form
      * @param {event}
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     eventFormDictionary(e) {
       if (e.key === 'Escape') {
@@ -215,7 +215,7 @@ export default {
     },
     /**
      * Mô tả : sự kiện nhấn vào nút lưu
-     * @Createdby: PTTAM
+     * @Createdby: bqdiep
      */
     beforeSaveData() {
       this.validateErrorList = [] // Gán lại array = []
@@ -238,7 +238,7 @@ export default {
     },
     /** Mô tả: Hiển thị popup
      * @param
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     showPopup(iconPopup, contentPopup) {
       this.classIconPopup = iconPopup

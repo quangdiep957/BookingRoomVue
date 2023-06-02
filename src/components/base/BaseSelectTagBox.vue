@@ -128,7 +128,7 @@ export default {
   },
   methods: {
     /** Mô tả: Gửi sự kiện khi có sự thay đổi giá trị
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     onOptionChange(e) {
       if (e.name == 'selectedItems' && e.value.length > 0) {
@@ -140,7 +140,7 @@ export default {
     },
     /**
      * Mô tả : Focus vào input
-     * @Createdby: PTTAM
+     * @Createdby: bqdiep
      */
     autoFocus() {
       let input = this.$refs['dropdown'].$el.querySelector(
@@ -150,20 +150,20 @@ export default {
     },
 
     /** Mô tả: Sự kiện enter
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     handleEnterkey() {
       this.opened = true
     },
     /** Mô tả: Gửi sự kiện focus
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     handleFocusIn() {
       this.opened = true
       this.$emit('handleKeyupInput')
     },
     /** Mô tả: sự kiện focus out của select box
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     validateError() {
       this.opened = false

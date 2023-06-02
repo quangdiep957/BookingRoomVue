@@ -148,7 +148,7 @@ export default {
     /** Mô tả: Sự kiện click vào icon xóa
      * @param {string} id Mã người dùng
      * @param {string} name Tên người dùng
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      * Created Date: 02-09-2022 13:57:55
      */
     onClickShowPopupDelete(id, name) {
@@ -158,7 +158,7 @@ export default {
     /** Mô tả: Sự kiện click vào icon sửa
      * @param
      * @return
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      * Created Date: 02-09-2022 13:59:04
      */
     onClickShowPopupEdit(id) {
@@ -166,14 +166,14 @@ export default {
     },
     /**
      * Mô tả: Sự kiện click vào icon approve
-     * PTTAM2 09/04/2023
+     * bqdiep2 09/04/2023
      */
     onClickShowPopupApprove(id) {
       this.$emit('onClickShowPopupApprove', id)
     },
     /**
      * Mô tả: Sự kiện click vào icon reject
-     * PTTAM2 09/04/2023
+     * bqdiep2 09/04/2023
      */
     onClickShowPopupReject(id) {
       this.$emit('onClickShowPopupReject', id)

@@ -5,7 +5,7 @@ class DepartmentAPI {
 
   /**
    * Mô tả : Lấy toàn bộ dữ liệu phòng ban từ api
-   * @Createdby: PTTAM
+   * @Createdby: bqdiep
    */
   getAll() {
     return BaseAPIConfig.get(`${this.controller}/getAll`)
@@ -43,7 +43,7 @@ class DepartmentAPI {
    * - pageIndex - trang hiện tại
    * - pageSize - sô bản ghi / trang
    * - keyword - từ khóa tìm kiếm
-   * @Createdby: PTTAM
+   * @Createdby: bqdiep
    */
   async getPaging(param) {
     return await BaseAPIConfig.post(`${this.controller}/paging`, param)

@@ -411,7 +411,7 @@ export default {
       loadDataRoomTypes: 'dictionary/loadDataRoomTypes',
     }),
     /** Mô tả: Thực hiện đóng popup
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     onClickClosePopup() {
       this.popupNoticeMode = -1
@@ -426,14 +426,14 @@ export default {
       }
     },
     /** Mô tả: Gửi sự kiện đóng form
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     onCloseForm() {
       this.$emit('onCloseForm')
     },
     /**
      * Validate
-     * PTTAM
+     * bqdiep
      */
     validate(fieldName) {
       try {
@@ -483,7 +483,7 @@ export default {
     },
     /** Mô tả: xử lý sự kiện form
      * @param {event}
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     eventFormDictionary(e) {
       if (e.key === 'Escape') {
@@ -497,7 +497,7 @@ export default {
     },
     /**
      * Mô tả : sự kiện nhấn vào nút lưu
-     * @Createdby: PTTAM
+     * @Createdby: bqdiep
      */
     beforeSaveData() {
       this.validateErrorList = [] // Gán lại array = []
@@ -563,7 +563,7 @@ export default {
 
     /** Mô tả: Hiển thị popup
      * @param
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     showPopup(iconPopup, contentPopup, titlePopup) {
       this.classIconPopup = iconPopup
@@ -635,7 +635,7 @@ export default {
     },
     /**
      * Lấy đối tượng user theo khóa chính
-     * PTTAM 1/05/2023
+     * bqdiep 1/05/2023
      */
     getRoomByID() {
       let me = this

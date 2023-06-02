@@ -2,7 +2,7 @@ import { ElMessage } from 'element-plus'
 const CommonFunction = Object.freeze({
   /** Mô tả: Thực hiên lấy mã màu ngẫu nhiên
    * @return {string} mã màu
-   * CreatedBy: PTTAM
+   * CreatedBy: bqdiep
    * Created Date: 04-09-2022 23:30:11
    */
   generateRandomColor() {
@@ -17,7 +17,7 @@ const CommonFunction = Object.freeze({
   /** Mô tả: Thực hiện tách chuỗi lấy 2 kí tự
    * @param {string} fullName Tên người dùng
    * @return {string} 2 kí tự
-   * CreatedBy: PTTAM
+   * CreatedBy: bqdiep
    * Created Date: 04-09-2022 23:30:58
    */
   splitFullName(fullName) {
@@ -34,7 +34,7 @@ const CommonFunction = Object.freeze({
    * Mô tả : Chuẩn hóa bảng ASCII sang NFD
    * @param {input} - chuỗi nhập vào
    * @return
-   * @Createdby: PTTAM
+   * @Createdby: bqdiep
    * Created date: 00:03 12/09/2022
    */
   normalizeString(input) {
@@ -48,7 +48,7 @@ const CommonFunction = Object.freeze({
    * Mô tả : Thực hiện toast dữ liệu
    * @param {message} --nội dung của toast msg
    * @param {type}  -- kiểu của toast msg
-   * @Createdby: PTTAM
+   * @Createdby: bqdiep
    * Created date: 10:21 02/09/2022
    */
   toastMessage(message, type) {
@@ -78,7 +78,7 @@ const CommonFunction = Object.freeze({
    * Mô tả : Validate Email
    * @param {email} - email
    * @return true: email đúng định dang, false: email sai định dạng
-   * @Createdby: PTTAM
+   * @Createdby: bqdiep
    * Created date: 18:56 30/08/2022
    */
   validateEmail(email) {

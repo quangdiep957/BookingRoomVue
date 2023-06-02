@@ -254,7 +254,7 @@ export default {
       loadDataRoles: 'dictionary/loadDataRoles',
     }),
     /** Mô tả: Gửi sự kiện đóng form
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     onCloseForm() {
       this.$emit('onCloseForm')
@@ -262,14 +262,14 @@ export default {
     /**
      * Sự kiện thay đổi khoa
      * @param {*} value
-     * PTTAM
+     * bqdiep
      */
     onValueChangeDepartment(value) {
       this.user.DepartmentID = value
     },
     /**
      * Mô tả : Sự kiện khi focus vào input đầu tiên khi tab index đến item cuối cùng của form
-     * @Createdby: PTTAM
+     * @Createdby: bqdiep
      */
     handleKeyup(e) {
       if (e.key == 'Tab') {
@@ -280,14 +280,14 @@ export default {
     /**
      * Sự kiện thay đổi khoa
      * @param {*} value
-     * PTTAM
+     * bqdiep
      */
     onValueChangeRole(value) {
       this.user.RoleID = value
     },
     /** Mô tả: Hiển thị popup
      * @param
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     showPopup(iconPopup, contentPopup) {
       this.classIconPopup = iconPopup
@@ -295,7 +295,7 @@ export default {
     },
     /** Mô tả: xử lý sự kiện form
      * @param {event}
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     eventFormDictionary(e) {
       if (e.key === 'Escape') {
@@ -309,7 +309,7 @@ export default {
     },
     /**
      * Close popup lỗi và focus và input lỗi đầu tiên
-     * PTTAM
+     * bqdiep
      */
     onClickClosePopup() {
       this.popupNoticeMode = -1
@@ -321,7 +321,7 @@ export default {
     },
     /**
      * Mô tả : sự kiện nhấn vào nút lưu
-     * @Createdby: PTTAM
+     * @Createdby: bqdiep
      */
     beforeSaveData() {
       this.validateErrorList = [] // Gán lại array = []
@@ -344,7 +344,7 @@ export default {
     },
     /**
      * Validate
-     * PTTAM
+     * bqdiep
      */
     validate(fieldName) {
       try {
@@ -431,7 +431,7 @@ export default {
     },
     /**
      * Lấy mã giảng viên mới từ server
-     * PTTAM 1/05/2023
+     * bqdiep 1/05/2023
      */
     getNewUserCode() {
       UserApi.getNewUserCode().then((res) => {
@@ -443,7 +443,7 @@ export default {
 
     /**
      * Lấy đối tượng user theo khóa chính
-     * PTTAM 1/05/2023
+     * bqdiep 1/05/2023
      */
     getUserByID() {
       UserApi.getByID(this.userID).then((res) => {
@@ -472,7 +472,7 @@ export default {
   },
   /**
    * Thực hiện gọi api để lấy dữ liệu phòng ban, vai trò
-   * PTTAM 02.04.2023
+   * bqdiep 02.04.2023
    */
   async created() {},
   async mounted() {

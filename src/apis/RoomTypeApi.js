@@ -5,7 +5,7 @@ class RoomTypeAPI {
 
   /**
    * Mô tả : Lấy toàn bộ dữ liệu thiết bị từ api
-   * @Createdby: PTTAM
+   * @Createdby: bqdiep
    * Created date: 21:33 1/09/2022
    */
   getAll() {
@@ -43,7 +43,7 @@ class RoomTypeAPI {
    * - pageIndex - trang hiện tại
    * - pageSize - sô bản ghi / trang
    * - keyword - từ khóa tìm kiếm
-   * @Createdby: PTTAM
+   * @Createdby: bqdiep
    */
   async getPaging(param) {
     return await BaseAPIConfig.post(`${this.controller}/paging`, param)

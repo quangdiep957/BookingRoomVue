@@ -154,7 +154,7 @@ export default {
     })
     /**
      * Hiển thị popup
-     * PTTAM
+     * bqdiep
      * @param {Boolean} isShow
      */
     function showFormDetail(isShow) {
@@ -162,7 +162,7 @@ export default {
     }
     /**
      * Header của table
-     * PTTAM
+     * bqdiep
      */
     var headerTableRole = [
       {
@@ -193,7 +193,7 @@ export default {
     /** Mô tả: Hàm hiển thị popup xóa người dùng
      * @param {string} userId Mã người dùng
      * @param {string} userName Tên người dùng
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      * Created Date: 02-09-2022 14:12:42
      */
     function onClickShowPopupDelete(id) {
@@ -203,7 +203,7 @@ export default {
       dataComponent.popupMode = Enum.PopupMode.DeleteMode // Gán lại trạng thái của popup
     }
     /** Mô tả: ẩn popup
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      * Created Date: 11-09-2022 08:22:11
      */
     function onClickClosePopup() {
@@ -213,7 +213,7 @@ export default {
     /**
      * Mô tả : Hàm show/hide loading
      * @param {Boolean} isShow true: hiển thị loading, false: ẩn loading
-     * @Createdby: PTTAM
+     * @Createdby: bqdiep
      */
     function showLoading(isShow) {
       dataComponent.isShowLoading = isShow
@@ -221,7 +221,7 @@ export default {
 
     /** Mô tả: Hàm hiển thị popup sửa vai trò của người dùng
      * @param {Object} user đối tượng người dùng
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      * Created Date: 03-09-2022 07:02:41
      */
     function onClickShowPopupEdit(id) {

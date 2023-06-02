@@ -88,7 +88,7 @@ export default {
     /**
      * Mô tả : Sự kiện select pageSize và gửi size đã chọn để tiến hành phân trang
      * @param {Object} option đối tượng pageSize khi chọn
-     * @Createdby: PTTAM
+     * @Createdby: bqdiep
      * Created date: 17:35 03/09/2022
      */
     selectedPageSize(option) {
@@ -98,7 +98,7 @@ export default {
     /**
      * Mô tả : Gửi page đã chọn để tiến hành phân trang
      * @param {Number} val index phân trang
-     * @Createdby: PTTAM
+     * @Createdby: bqdiep
      * Created date: 17:36 03/09/2022
      */
     changeCurrentPage(val) {

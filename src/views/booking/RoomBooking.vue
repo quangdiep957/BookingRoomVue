@@ -493,7 +493,7 @@ export default {
     /**
      * Mô tả : Hàm show/hide loading
      * @param {Boolean} isShow true: hiển thị loading, false: ẩn loading
-     * @Createdby: PTTAM
+     * @Createdby: bqdiep
      */
     showLoading(isShow) {
       this.isShowLoading = isShow
@@ -501,7 +501,7 @@ export default {
     },
     /**
      * Sự kiện tăng giảm ngày
-     * 24.04.2023 PTTAM
+     * 24.04.2023 bqdiep
      */
     SetDate(handle) {
       var date = new Date(this.currentDate)
@@ -516,7 +516,7 @@ export default {
     },
     /**
      * Sự kiện click vào lịch để đặt phòng
-     * 24.04.2023 PTTAM
+     * 24.04.2023 bqdiep
      */
     onAppointmentClick(e) {
       e.cancel = true // Hủy bỏ việc hiển thị popup mặc định của DevExtreme
@@ -540,7 +540,7 @@ export default {
     /**
      * Sự kiện lấy dữ liệu đặt phòng
      * 23.04.2024
-     * PTTAM
+     * bqdiep
      */
     async loadDataBooking() {
       try {
@@ -590,7 +590,7 @@ export default {
     },
     /**
      * Convert date để hiển thị lên lịch
-     * PTTAM 23.04.2023
+     * bqdiep 23.04.2023
      */
     handleDataSource() {
       this.showLoading(false)

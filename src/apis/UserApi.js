@@ -14,7 +14,7 @@ class UserAPI {
 
   /**
    * Mô tả : Lấy tất cả dữ liệu
-   * @Createdby: PTTAM
+   * @Createdby: bqdiep
    *Created date: 13:40 03/09/2022
    */
   async getAll() {
@@ -27,7 +27,7 @@ class UserAPI {
    * - pageIndex - trang hiện tại
    * - pageSize - sô bản ghi / trang
    * - keyword - từ khóa tìm kiếm
-   * @Createdby: PTTAM
+   * @Createdby: bqdiep
    */
   async getPaging(param) {
     return await BaseAPIConfig.post(`${this.controller}/pagingUser`, param)
@@ -35,7 +35,7 @@ class UserAPI {
 
   /**
    * Mô tả : Hàm lấy mã Người dùng mới
-   * @Createdby: PTTAM
+   * @Createdby: bqdiep
    * Created date: 13:40 03/09/2022
    */
   async getNewUserCode() {

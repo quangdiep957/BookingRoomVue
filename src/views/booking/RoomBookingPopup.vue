@@ -423,7 +423,7 @@ export default {
 
   methods: {
     // Gọi hàm load data từ store
-    // PTTAM
+    // bqdiep
     ...mapActions({
       loadDataRooms: 'dictionary/loadDataRooms',
       loadDataBuildings: 'dictionary/loadDataBuildings',
@@ -432,7 +432,7 @@ export default {
     /**
      * Sự kiện thay đổi phòng
      * @param {*} value
-     * PTTAM
+     * bqdiep
      */
     onValueChangeRoom(value) {
       this.bookingRoomData.RoomID = value
@@ -441,7 +441,7 @@ export default {
     /**
      * Mô tả : Hàm show/hide loading
      * @param {Boolean} isShow true: hiển thị loading, false: ẩn loading
-     * @Createdby: PTTAM
+     * @Createdby: bqdiep
      */
     showLoading(isShow) {
       this.isShowLoading = isShow
@@ -449,7 +449,7 @@ export default {
     /**
      * Sự kiện thay đổi ca học
      * @param {*} value
-     * PTTAM
+     * bqdiep
      */
     onValueChangeTimeSlot(values) {
       if (values) {
@@ -464,7 +464,7 @@ export default {
     },
     /** Mô tả: Hiển thị popup
      * @param
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     showPopup(iconPopup, contentPopup, titlePopup) {
       this.classIconPopup = iconPopup
@@ -472,14 +472,14 @@ export default {
       this.titlePopup = titlePopup
     },
     /** Mô tả: Gửi sự kiện đóng form
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     onCloseForm() {
       this.$emit('onCloseForm')
     },
     /**
      * Mô tả : Sự kiện khi focus vào input đầu tiên khi tab index đến item cuối cùng của form
-     * @Createdby: PTTAM
+     * @Createdby: bqdiep
      */
     handleKeyup(e) {
       if (e.key == 'Tab') {
@@ -493,7 +493,7 @@ export default {
     // },
     /**
      * Close popup lỗi và focus và input lỗi đầu tiên
-     * PTTAM
+     * bqdiep
      */
     onClickClosePopup() {
       this.popupNoticeMode = -1
@@ -505,7 +505,7 @@ export default {
     },
     /** Mô tả: xử lý sự kiện form
      * @param {event}
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      */
     eventFormDictionary(e) {
       if (e.key === 'Escape') {
@@ -519,7 +519,7 @@ export default {
     },
     /**
      * Mô tả : sự kiện nhấn vào nút lưu
-     * @Createdby: PTTAM
+     * @Createdby: bqdiep
      */
     beforeSaveData() {
       this.showLoading(true)
@@ -559,7 +559,7 @@ export default {
     },
     /**
      * Validate
-     * PTTAM
+     * bqdiep
      */
     validate(fieldName) {
       try {
@@ -705,7 +705,7 @@ export default {
     },
     /**
      * Lấy đối tượng user theo khóa chính
-     * PTTAM 3/05/2023
+     * bqdiep 3/05/2023
      */
     async getBookingRoomByID() {
       let me = this

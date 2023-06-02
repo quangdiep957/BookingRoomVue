@@ -111,7 +111,7 @@ export default {
   },
   methods: {
     /** Mô tả: Gửi giá trị của input
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      * Created Date: 09-09-2022 08:26:02
      */
     input(event) {
@@ -123,14 +123,14 @@ export default {
 
     /**
      * Mô tả : Sự kiện blur bắt lỗi các trường bắt buộc nhập
-     * @Createdby: PTTAM
+     * @Createdby: bqdiep
      * Created date: 08:25 03/09/2022
      */
     handleBlur() {
       this.$emit('handleBlurInput')
     },
     /** Mô tả: Sự kiện keyup xóa lỗi
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      * Created Date: 14-09-2022 19:17:54
      */
     handleKeyup() {
@@ -138,7 +138,7 @@ export default {
     },
     /**
      * Mô tả : Focus vào input
-     * @Createdby: PTTAM
+     * @Createdby: bqdiep
      */
     autoFocus() {
       this.$refs['input'].focus()
@@ -146,7 +146,7 @@ export default {
   },
   watch: {
     /** Mô tả: Thei dõi focus của input
-     * CreatedBy: PTTAM
+     * CreatedBy: bqdiep
      * Created Date: 09-09-2022 08:27:11
      */
     focus() {
