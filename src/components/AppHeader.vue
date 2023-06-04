@@ -12,6 +12,7 @@
             <CIcon
               class="mx-2"
               icon="cil-bell"
+              :class="{ animation: countNotify != 0 }"
               size="lg"
               @click="showNotify = true"
             >
@@ -92,13 +93,14 @@ import { logo } from '@/assets/brand/logo'
 import { initializeApp } from 'firebase/app'
 import { getDatabase, ref, onValue, child, update } from 'firebase/database'
 const firebaseConfig = {
-  apiKey: 'AIzaSyC79t9n29m5Ayy0gg0lvqAFPEleapma-hQ',
-  authDomain: 'room-90f68.firebaseapp.com',
-  projectId: 'room-90f68',
-  storageBucket: 'room-90f68.appspot.com',
-  messagingSenderId: '660048698458',
-  appId: '1:660048698458:web:22727bc42c38273b5e4c63',
-  measurementId: 'G-1TP028XG2N',
+  apiKey: 'AIzaSyAlL9NgTsOCW3ZFzRBqufXu_0GuiVdgP-M',
+  authDomain: 'bookingroom-7b732.firebaseapp.com',
+  databaseURL: 'https://bookingroom-7b732-default-rtdb.firebaseio.com',
+  projectId: 'bookingroom-7b732',
+  storageBucket: 'bookingroom-7b732.appspot.com',
+  messagingSenderId: '353974511157',
+  appId: '1:353974511157:web:0b803386e2408e8c08b37c',
+  measurementId: 'G-R165PEW8SQ',
 }
 
 const app = initializeApp(firebaseConfig)
@@ -242,5 +244,19 @@ export default {
   color: rgba(44, 56, 74, 0.681) !important;
   text-decoration: none;
   background-color: #478bc4f0 !important;
+}
+@keyframes shake {
+  0% {
+    transform: translateX(-2px);
+  }
+  50% {
+    transform: translateX(2px);
+  }
+  100% {
+    transform: translateX(-2px);
+  }
+}
+.nav-link .animation {
+  animation: shake 0.5s infinite;
 }
 </style>
