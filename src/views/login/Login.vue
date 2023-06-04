@@ -144,10 +144,11 @@ export default {
       AccountApi.loginGoogle(param)
         .then((res) => {
           if (res) {
-            console.log(res)
+            // gán avatar vào localstorage
+            res.data.User.avartar = userData.picture
             localStorage.setItem('token', res.data.Value)
             // Lưu thông tin đăng nhập vào local storage
-            localStorage.setItem('user', JSON.stringify(res))
+            localStorage.setItem('user', JSON.stringify(res.data.User))
             localStorage.setItem('roleOption', res.roleOption)
             // Chuyển hướng đến trang Dashboard sau khi đăng nhập thành công
             googleLogout()

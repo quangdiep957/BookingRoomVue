@@ -6,9 +6,12 @@
           class="misa-cell-avatar-color"
           :style="{
             backgroundColor: user.AvartarColor,
+            backgroundImage: 'url(' + user.avartar + ')',
           }"
         >
-          {{ ObjectFunction.splitFullName(user.FullName) }}
+          <span v-if="!user.avartar">{{
+            ObjectFunction.splitFullName(user.FullName)
+          }}</span>
         </div>
       </div>
     </CDropdownToggle>
@@ -92,6 +95,8 @@ export default {
   text-transform: uppercase;
   height: 32px;
   width: 32px;
+  background-size: cover;
+  background-position: center;
   border-radius: 50%;
   padding-top: 6px;
   font-size: 14px;
