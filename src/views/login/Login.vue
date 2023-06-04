@@ -149,7 +149,7 @@ export default {
             localStorage.setItem('token', res.data.Value)
             // Lưu thông tin đăng nhập vào local storage
             localStorage.setItem('user', JSON.stringify(res.data.User))
-            localStorage.setItem('roleOption', res.roleOption)
+            localStorage.setItem('roleOption', res.data.User.RoleOption)
             // Chuyển hướng đến trang Dashboard sau khi đăng nhập thành công
             googleLogout()
             if (localStorage.getItem('roleOption') - 0 === 3) {

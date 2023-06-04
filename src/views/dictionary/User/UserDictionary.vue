@@ -32,6 +32,7 @@
             text="Thêm mới"
             type="default"
             styling-mode="contained"
+            v-if="isAdmin"
             @click="addUser"
           />
           <el-tooltip content="Lấy lại dữ liệu" placement="top">
@@ -397,6 +398,12 @@ export default {
     Enum() {
       return Enum
     },
+  },
+  created() {
+    this.isAdmin =
+      localStorage.getItem('roleOption') - 0 == Enum.RoleOption.Admin
+        ? true
+        : false
   },
   async mounted() {
     try {
