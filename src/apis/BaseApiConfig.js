@@ -1,6 +1,6 @@
 /* eslint-disable */
 import axios from 'axios'
-let BaseAPIConfig = axios.create({ baseURL: `http://bookingroom.click/api/v1/` })
+let BaseAPIConfig = axios.create({ baseURL: `http://bookingroom.click:6789/api/v1/` })
 // let BaseAPIConfig = axios.create({ baseURL: `http://localhost:5081/api/v1/` })
 BaseAPIConfig.interceptors.request.use((config) => {
   const token = localStorage.getItem('token')
