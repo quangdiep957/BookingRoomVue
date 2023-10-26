@@ -10,7 +10,7 @@
           />
         </div>
         <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-          <form @submit.prevent="handleSubmit">
+          <form>
             <div class="form-body">
               <div class="logo"></div>
               <div class="dx-fieldset-header">Đặt lịch phòng học</div>
@@ -48,6 +48,22 @@
                   </DxValidator>
                   <div class="input-field-icon icon-password"></div>
                 </DxTextBox>
+                <div class="mgb-8" v-if="isShowCreate">Retype Password</div>
+                <DxTextBox
+                  v-if="isShowCreate"
+                  v-model:value="retypepassword"
+                  label-mode="static"
+                  class="input-field"
+                  mode="password"
+                >
+                  <DxValidator>
+                    <DxValidationRule
+                      type="required"
+                      message="Password không được để trống"
+                    />
+                  </DxValidator>
+                  <div class="input-field-icon icon-password"></div>
+                </DxTextBox>
                 <div class="error" v-if="error != ''">{{ error }}</div>
                 <!-- <DxButton
                   width="100%"
@@ -61,11 +77,21 @@
                   :use-submit-behavior="true"
                   :tabindex="3"
                   lableButton="Đăng nhập"
+                  @click="handleSubmit"
+                  classButton="misa-button-normal w-120 misa-button-primary "
+                ></BaseButton>
+                <BaseButton
+                  class="mgt-16"
+                  :use-submit-behavior="true"
+                  :tabindex="3"
+                  lableButton="Đăng ký"
+                  @click="CreateUser"
                   classButton="misa-button-normal w-120 misa-button-primary "
                 ></BaseButton>
                 <div style="margin-top: 10px">
                   <GoogleLogin
                     :callback="callback"
+                    @logout-success="onLogoutSuccess"
                     class="custom-google-login"
                     :style="{ width: '100%' }"
                   />
@@ -112,6 +138,8 @@ import DxValidator, { DxValidationRule } from 'devextreme-vue/validator'
 import DxTextBox from 'devextreme-vue/text-box'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseLoading from '@/components/base/BaseLoading.vue'
+import ObjectFunction from '@/commons/CommonFuction'
+import Resource from '@/commons/Resource'
 export default {
   components: {
     DxTextBox,
@@ -124,12 +152,14 @@ export default {
     return {
       username: '',
       password: '',
+      retypepassword: '',
       error: '',
       isShowLoading: false,
+      isShowCreate: false,
     }
   },
-  mounted() {
-    googleLogout()
+  async mounted() {
+    await googleLogout()
   },
   methods: {
     async callback(response) {
@@ -163,7 +193,10 @@ export default {
           console.log(res)
         })
     },
+
     async handleSubmit() {
+      debugger
+      this.isShowCreate = false
       this.isShowLoading = true
       const user = { Username: this.username, Password: this.password }
       localStorage.setItem('user', JSON.stringify(user))
@@ -183,6 +216,51 @@ export default {
         this.error = 'Tên đăng nhập hoặc mật khẩu không đúng!'
         // console.error(error)
         // Hiển thị thông báo lỗi đăng nhập
+      }
+    },
+    generateRandomCode() {
+      const min = 1000
+      const max = 9999
+      const randomNum = Math.floor(Math.random() * (max - min + 1) + min)
+      return `KH-${randomNum}`
+    },
+    async CreateUser() {
+      if (!this.isShowCreate) {
+        this.isShowCreate = true
+      } else {
+        if (!this.username || !this.password || !this.retypepassword) {
+          this.error = 'Vui lòng nhập đầy đủ thông tin!'
+        } else if (this.password != this.retypepassword) {
+          this.error = 'Mật khẩu không trùng nhau!'
+        } else {
+          const user = {
+            userCode: this.generateRandomCode(),
+            fullName: this.username,
+            password: this.password,
+            passwordNew: this.retypepassword,
+            email: this.username,
+            departmentID: '7c58ad4d-69ed-11ee-8a24-040e3cab354b',
+            roleID: '57db56b9-69ed-11ee-8a24-040e3cab354b',
+            avartarColor: 'KH',
+            phoneNumber: 'string',
+            departmentName: 'string',
+            roleOption: 0,
+            roleName: 'string',
+            passwordOld: 'string',
+          }
+          AccountApi.CreateAccount(user)
+            .then((res) => {
+              if (res) {
+                ObjectFunction.toastMessage(
+                  'Đăng ký thành công.',
+                  Resource.Messenger.Success,
+                )
+              }
+            })
+            .catch((res) => {
+              console.log(res)
+            })
+        }
       }
     },
   },

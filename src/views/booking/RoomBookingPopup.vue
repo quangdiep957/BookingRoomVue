@@ -261,6 +261,15 @@
       </template>
       <template #buttonPopup>
         <div class="t-button-footer">
+          <div v-if="popupMode == Enum.PopupMode.HistoryMode">
+            <BaseButton
+              :tabindex="8"
+              :lableButton="'In'"
+              classButton="w-120 misa-button-primary "
+              @click="beforeViewReport()"
+            ></BaseButton>
+          </div>
+
           <div
             class="t--is-admin flex"
             v-if="
@@ -290,21 +299,8 @@
               classButton="w-120 misa-button-primary "
               @click="beforeSaveData()"
             ></BaseButton>
-            <!-- <BaseButton
-           
-              :tabindex="8"
-              :lableButton="lableButtonBooking"
-              classButton="w-120 misa-button-primary "
-              @click="beforeSaveData()"
-            ></BaseButton> -->
           </div>
         </div>
-
-        <BaseButton
-          @keyup="handleKeyup"
-          classButton="w-0"
-          :tabindex="9"
-        ></BaseButton>
       </template>
     </BasePopup>
   </div>
@@ -352,6 +348,7 @@ import BaseDropdownbox from '@/components/base/BaseDropdownbox.vue'
 import BaseInput from '@/components/base/BaseInput.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BasePopup from '@/components/base/BasePopup.vue'
+import axios from 'axios'
 import BaseSelectTagBox from '@/components/base/BaseSelectTagBox.vue'
 import { mapActions, mapState } from 'vuex'
 import Enum from '@/commons/Enum'
@@ -457,6 +454,23 @@ export default {
     onValueChangeRoom(value) {
       this.bookingRoomData.RoomID = value
       this.roomChoose = this.dataRoom.find((x) => x.RoomID == value)
+    },
+
+    async beforeViewReport() {
+      let me = this
+      this.showLoading(true)
+      let url = `http://localhost:5081/api/v1/BookingRooms/PrintReport/${me.bookingRoomData.BookingRoomID}`
+      const response = await axios.get(url, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      if (response.data) {
+        me.showLoading(false)
+        window.open(url, '_blank')
+      } else {
+        me.showLoading(true)
+      }
     },
     /**
      * Mô tả : Hàm show/hide loading
@@ -670,8 +684,24 @@ export default {
     saveData() {
       let me = this
       let bookingData = {}
+      debugger
+
+      var so_luong = me.bookingRoomData.TimeSlots.split(',').length
+      var amount = (so_luong ? so_luong : 0) * 25000
+      const newGUID = this.generateGUID()
+      // nếu quyền là khách hàng bên ngoài thì phải thanh toán
+
       if (me.popupMode == Enum.PopupMode.AddMode) {
         try {
+          debugger
+          if (localStorage.roleOption == '10') {
+            me.bookingRoomData.statusBooking = 4
+            me.bookingRoomData.orderId = newGUID
+            me.bookingRoomData.amountUser = amount
+          } else {
+            me.bookingRoomData.statusBooking = 1
+            me.bookingRoomData.orderId = ''
+          }
           me.bookingRoomData.StartDate = moment(
             this.bookingRoomData.StartDate,
           ).format('YYYY/MM/DD')
@@ -691,16 +721,38 @@ export default {
                     Resource.Messenger.Success,
                   )
                 } else {
-                  ObjectFunction.toastMessage(
-                    'Yêu cầu đặt phòng đã được gửi đến quản trị viên phê duyệt.',
-                    Resource.Messenger.Success,
-                  )
+                  if (localStorage.roleOption == '10') {
+                    // nếu thành công gọi đến trang thanh toán
+                    let paramVnPay = {
+                      orderType: 'string',
+                      amount: amount,
+                      orderDescription: 'string',
+                      name: 'string',
+                      bankCode: '',
+                      orderId: newGUID,
+                    }
+                    axios
+                      .post(
+                        'http://localhost:5081/api/v1/VNPay/GetUrlCreatePayment',
+                        paramVnPay,
+                      )
+                      .then((resUrl) => {
+                        // nếu thành công gọi đến trang thanh toán
+                        // this.openPopup(resUrl)
+                        window.location.href = resUrl.data
+                      })
+                  } else {
+                    ObjectFunction.toastMessage(
+                      'Yêu cầu đặt phòng đã được gửi đến quản trị viên phê duyệt.',
+                      Resource.Messenger.Success,
+                    )
+                  }
+                  me.$emit('onShowLoading') // hiển thị loading
+                  me.$emit('isSuccess', {
+                    popupMode: me.popupMode,
+                    bookingRoomData: bookingData,
+                  })
                 }
-                me.$emit('onShowLoading') // hiển thị loading
-                me.$emit('isSuccess', {
-                  popupMode: me.popupMode,
-                  bookingRoomData: bookingData,
-                })
               } else {
                 me.showLoading(false)
                 let data = res.data.Data
@@ -762,6 +814,16 @@ export default {
         })
       }
     },
+    generateGUID() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
+        /[xy]/g,
+        function (c) {
+          var r = (Math.random() * 16) | 0,
+            v = c == 'x' ? r : (r & 0x3) | 0x8
+          return v.toString(16)
+        },
+      )
+    },
     /**
      * Lấy đối tượng user theo khóa chính
      * bqdiep 3/05/2023
@@ -802,6 +864,28 @@ export default {
           me.showLoading(false)
         }
       })
+    },
+    openPopup(url) {
+      debugger
+      const width = 800
+      const height = 800
+      const left = (window.innerWidth - width) / 2
+      const top = (window.innerHeight - height) / 2
+
+      // Thuộc tính cho cửa sổ popup
+      const popupOptions = `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes`
+
+      // Mở cửa sổ popup
+      const popupWindow = window.open(url.data, 'kahscPopup', popupOptions)
+
+      // Chắc chắn rằng trình duyệt đã chặn popup và cửa sổ popup đã được mở
+      if (popupWindow) {
+        popupWindow.focus()
+      } else {
+        alert(
+          'Trình duyệt đã chặn cửa sổ popup. Vui lòng cho phép popup trong trình duyệt.',
+        )
+      }
     },
     onClickUpdate() {
       this.isDisable = false

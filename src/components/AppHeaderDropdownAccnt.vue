@@ -47,6 +47,7 @@
 
 <script>
 import avatar from '@/assets/images/avatars/8.jpg'
+import { googleLogout } from 'vue3-google-login'
 import { mapState, mapActions } from 'vuex'
 import ObjectFunction from '@/commons/CommonFuction'
 import ChangePass from '@/views/dictionary/User/ChangePass.vue'
@@ -77,7 +78,9 @@ export default {
     handleChangePass() {
       this.showPopup(true)
     },
+
     handleLogout() {
+      googleLogout()
       this.logout()
       this.$router.push('/login')
     },

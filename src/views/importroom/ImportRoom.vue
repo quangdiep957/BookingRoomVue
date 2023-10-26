@@ -426,7 +426,7 @@ export default {
             const formData = new FormData()
             formData.append('file', this.fileUpload)
             const response = await axios.post(
-              'http://34.96.176.17:8888/api/v1/BookingRooms/excel',
+              'http://localhost:5081/api/v1/BookingRooms/excel',
               formData,
               {
                 headers: {

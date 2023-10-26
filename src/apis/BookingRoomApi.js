@@ -111,6 +111,14 @@ class BookingRoomAPI {
    * @param {*} id
    * @returns
    */
+  getReportByID(id) {
+    return BaseAPIConfig.get(`${this.controller}/PrintReport/${id}`)
+  }
+  /**
+   * Lấy đối tượng theo khóa chính
+   * @param {*} id
+   * @returns
+   */
   cancelBookingRequest(id) {
     return BaseAPIConfig.put(
       `${this.controller}/cancelBookingRequestNomal/${id}`,

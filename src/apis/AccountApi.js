@@ -11,7 +11,11 @@ class AccountAPI {
   async logIn(user) {
     return await BaseAPIConfig.post(`${this.controller}/login`, user)
   }
+  async CreateAccount(user) {
+    return await BaseAPIConfig.post(`users/insert`, user)
+  }
   async logOut() {
+    localStorage.setItem('isLoggedIn', false)
     return await BaseAPIConfig.post(`${this.controller}/logout`)
   }
   async changepass(user) {

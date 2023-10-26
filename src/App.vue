@@ -141,4 +141,10 @@ button {
 .container-lg {
   padding: 0 !important;
 }
+#webpack-dev-server-client-overlay-div {
+  display: none !important;
+}
+#webpack-dev-server-client-overlay {
+  display: none !important;
+}
 </style>

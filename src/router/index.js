@@ -1,9 +1,14 @@
 import { h, resolveComponent } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
-
+import Checkout from '@/views/Checkout.vue'
 import DefaultLayout from '@/layouts/DefaultLayout'
 
 const routes = [
+  {
+    path: '/checkout',
+    name: 'Checkout',
+    component: Checkout,
+  },
   {
     path: '/',
     name: 'Trang chủ',
@@ -189,7 +194,6 @@ const router = createRouter({
 })
 router.beforeEach((to, from, next) => {
   const loggedIn = localStorage.getItem('user')
-
   if (to.matched.some((record) => record.meta.requiresAuth) && !loggedIn) {
     next('/login')
   } else {
