@@ -1,5 +1,6 @@
 import BuildingApi from '@/apis/BuildingApi'
 import RoomApi from '@/apis/RoomApi'
+import ClassApi from '@/apis/classApi'
 import EquipmentApi from '@/apis/EquipmentApi'
 import TimeSlotApi from '@/apis/TimeSlotApi'
 import DepartmentApi from '@/apis/DepartmentApi'
@@ -7,6 +8,7 @@ import RoleApi from '@/apis/RoleApi'
 import EquipmentTypeApi from '@/apis/EquipmentTypeApi'
 import RoomTypeApi from '@/apis/RoomTypeApi'
 import UserApi from '@/apis/UserApi'
+import SubjectApi from '@/apis/SubjectApi'
 const state = {
   /**
    * Dữ liệu tòa nhà
@@ -72,7 +74,24 @@ const mutations = {
   loadDataRooms(state, data) {
     state.dataRoom = data
   },
+  /**
+   * Gán lại dữ liệu lớp
+   */
+  loadDataClass(state, data) {
+    const uniqueClass = data.filter(
+      (obj, index, self) =>
+        index === self.findIndex((o) => o.ClassID === obj.ClassID),
+    )
+    state.dataClass = uniqueClass
+  },
+  loadDataSubject(state, data) {
+    const uniqueObjects = data.filter(
+      (obj, index, self) =>
+        index === self.findIndex((o) => o.SubjectID === obj.SubjectID),
+    )
 
+    state.dataSubject = uniqueObjects
+  },
   /**
    * Gán lại dữ liệu thời gian
    */
@@ -145,6 +164,34 @@ const actions = {
     await RoomApi.getAll().then(
       (res) => {
         commit('loadDataRooms', res.data)
+      },
+      (err) => {
+        console.log(err)
+      },
+    )
+  },
+
+  /**
+   * Thực hiện gọi api lấy toàn bộ dữ liệu lớp
+   */
+  async loadDataClass({ commit }) {
+    await ClassApi.getAll().then(
+      (res) => {
+        commit('loadDataClass', res.data)
+      },
+      (err) => {
+        console.log(err)
+      },
+    )
+  },
+
+  /**
+   * Thực hiện gọi api lấy toàn bộ dữ liệu lớp
+   */
+  async loadDataSubject({ commit }) {
+    await SubjectApi.getClassActive().then(
+      (res) => {
+        commit('loadDataSubject', res.data)
       },
       (err) => {
         console.log(err)

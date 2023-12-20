@@ -83,5 +83,16 @@ const Enum = Object.freeze({
      */
     HistoryMode: 7,
   },
+  /**
+   * Enum lịch book theo
+   */
+  BookingMulti: {
+    // theo ngày
+    Day: '1',
+    // theo tuần
+    Week: '2',
+    // theo tháng
+    Months: '3',
+  },
 })
 export default Enum

@@ -57,6 +57,12 @@ const routes = [
         meta: { requiresAuth: true },
       },
       {
+        path: '/booking/lecturer',
+        name: 'Đặt lịch giảng viên',
+        component: () => import('@/views/booking/BookingRoomLecturer.vue'),
+        meta: { requiresAuth: true },
+      },
+      {
         path: '/dictionary',
         name: 'Danh mục',
         component: {
@@ -88,6 +94,13 @@ const routes = [
             meta: { requiresAuth: true },
           },
           {
+            path: '/dictionary/subject',
+            name: 'Môn học',
+            component: () =>
+              import('@/views/dictionary/Subject/SubjectDictionary.vue'),
+            meta: { requiresAuth: true },
+          },
+          {
             path: '/dictionary/timeslot',
             name: 'Ca học',
             component: () =>
@@ -106,6 +119,13 @@ const routes = [
             name: 'Loại thiết bị',
             component: () =>
               import('@/views/dictionary/Equipment/EquipmentDictionary.vue'),
+            meta: { requiresAuth: true },
+          },
+          {
+            path: '/dictionary/class',
+            name: 'Lớp',
+            component: () =>
+              import('@/views/dictionary/Class/ClassDictionary.vue'),
             meta: { requiresAuth: true },
           },
         ],
@@ -139,6 +159,25 @@ const routes = [
             name: 'Khoa',
             component: () =>
               import('@/views/dictionary/Department/DepartmentDictionary.vue'),
+            meta: { requiresAuth: true },
+          },
+        ],
+      },
+      {
+        path: '/attendance',
+        name: 'Điểm danh',
+        component: {
+          render() {
+            return h(resolveComponent('router-view'))
+          },
+        },
+        redirect: '/attendance/attendance',
+        children: [
+          {
+            path: '/attendance/attendance',
+            name: 'Điểm danh',
+            component: () =>
+              import('@/views/dictionary/Attendance/AttendanceDictionary.vue'),
             meta: { requiresAuth: true },
           },
         ],

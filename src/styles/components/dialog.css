@@ -223,6 +223,14 @@
   overflow-y: scroll;
   margin-bottom: 20px;
 }
+.misa-dialog .popup-dictionary-class-detail .misa-dialog-body {
+  width: 50vw;
+  min-height: 28vh;
+  max-height: 28vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  margin-bottom: 20px;
+}
 .misa-dialog .popup-dictionary-user-detail .misa-dialog-body {
   width: 45vw;
   min-height: 52vh;

@@ -90,7 +90,7 @@
 .dx-field-value.misa-selectbox:not(.dx-switch):not(.dx-checkbox):not(
     .dx-button
   ) {
-  width: 100% !important;
+  width: 100% ;
 }
 .w-200.dx-show-invalid-badge.dx-selectbox.dx-textbox.dx-texteditor.dx-dropdowneditor-button-visible.dx-editor-outlined.dx-widget.dx-dropdowneditor.dx-dropdowneditor-field-clickable {
   margin-left: 12px;
