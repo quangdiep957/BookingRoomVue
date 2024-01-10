@@ -58,6 +58,7 @@ const AppSidebarNav = defineComponent({
     })
 
     const renderItem = (item) => {
+      debugger
       if (item.to === '/dashboard') {
         return null
       }
@@ -68,7 +69,14 @@ const AppSidebarNav = defineComponent({
         return null
       }
       if (
-        (item.name == 'Danh mục' || item.name == 'Phòng học') &&
+        (item.name == 'Danh mục' || item.name == 'Chức năng khác') &&
+        localStorage.getItem('roleOption') - 0 !== 1 &&
+        localStorage.getItem('roleOption') - 0 !== 2
+      ) {
+        return null
+      }
+      if (
+        (item.name == 'Danh mục' || item.name == 'Phòng') &&
         localStorage.getItem('roleOption') - 0 === 3
       ) {
         return null

@@ -234,7 +234,7 @@
 .misa-dialog .popup-dictionary-user-detail .misa-dialog-body {
   width: 45vw;
   min-height: 52vh;
-  max-height: 52vh;
+  max-height: 60vh;
   overflow-x: hidden;
   overflow-y: hidden;
   margin-bottom: 20px;

@@ -195,7 +195,6 @@ export default {
     },
 
     async handleSubmit() {
-      debugger
       this.isShowCreate = false
       this.isShowLoading = true
       const user = { Username: this.username, Password: this.password }

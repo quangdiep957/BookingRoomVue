@@ -148,6 +148,13 @@ const routes = [
             meta: { requiresAuth: true },
           },
           {
+            path: '/dictionary/student',
+            name: 'Sinh viên',
+            component: () =>
+              import('@/views/dictionary/Student/StudentDictionary.vue'),
+            meta: { requiresAuth: true },
+          },
+          {
             path: '/dictionary/role',
             name: 'Vai trò',
             component: () =>

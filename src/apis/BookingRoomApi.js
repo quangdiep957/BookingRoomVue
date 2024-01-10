@@ -145,6 +145,15 @@ class BookingRoomAPI {
     )
   }
   /**
+   * tải template excel
+   * @returns
+   */
+  downloadfile() {
+    return BaseAPIConfig.post(`${this.controller}/downloadfile`, {
+      responseType: 'blob',
+    })
+  }
+  /**
    * Thực hiên gửi email khi update lịch đặt
    * @param {*} id - khóa chính
    * @param {*} entity - vai trò

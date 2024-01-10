@@ -257,7 +257,6 @@ export default {
       fields.forEach((field) => {
         this.validate(field)
       })
-      debugger
       // Nếu mảng chứa lỗi không chứa lỗi
       if (this.validateErrorList.length <= 0) {
         // Thêm mới user

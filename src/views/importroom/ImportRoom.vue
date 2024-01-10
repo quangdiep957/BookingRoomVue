@@ -93,11 +93,7 @@
                             id="btnDownTempFile"
                             title="Bấm vào đây để tải tệp"
                           >
-                            <a
-                              href=" https://mily.misa.vn/download-file-nhap-khau"
-                              download="NhapKhau.xlsx"
-                              >NhapKhau.xlsx</a
-                            >
+                            <a href="" @click="GetImportExcel">NhapKhau.xlsx</a>
                           </div>
                         </div>
                       </div>
@@ -370,6 +366,8 @@ import axios from 'axios'
 import BasePopup from '@/components/base/BasePopup.vue'
 import ObjectFunction from '@/commons/CommonFuction'
 import Resource from '@/commons/Resource'
+import BookingRoomApi from '@/apis/BookingRoomApi'
+import { saveAs } from 'file-saver'
 import {
   DxDataGrid,
   DxScrolling,
@@ -384,6 +382,7 @@ export default {
     DxToolbarItem,
     DxButton,
     DxDataGrid,
+    BookingRoomApi,
     DxScrolling,
     DxColumn,
     DxPaging,
@@ -412,6 +411,37 @@ export default {
   },
 
   methods: {
+    async GetImportExcel(e) {
+      try {
+        e.preventDefault() // Ngăn chặn sự kiện mặc định
+        // Gọi API để nhận dữ liệu Excel từ backend
+        const res = await BookingRoomApi.downloadfile()
+
+        // Kiểm tra lỗi từ API
+        if (res.data.error) {
+          console.error('API Error:', res.data.error)
+          return
+        }
+
+        // Tạo Blob từ dữ liệu nhận được
+        const blob = new Blob([res.data], {
+          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        })
+
+        // Tạo liên kết để kích hoạt sự kiện download
+        const link = document.createElement('a')
+        link.href = URL.createObjectURL(blob)
+        link.download = 'GeneratedFile.xlsx' // Tên tệp tin khi được tải xuống
+        document.body.appendChild(link)
+
+        // Sử dụng thư viện file-saver để tải xuống
+        saveAs(blob, 'GeneratedFile.xlsx')
+
+        document.body.removeChild(link)
+      } catch (error) {
+        console.error('Error downloading Excel file:', error)
+      }
+    },
     /**
      * Next
      */
@@ -425,6 +455,8 @@ export default {
             this.isShowLoading = true
             const formData = new FormData()
             formData.append('file', this.fileUpload)
+            const userID = JSON.parse(localStorage.getItem('user')).UserID
+            formData.append('userID', userID);
             const response = await axios.post(
               'http://localhost:5081/api/v1/BookingRooms/excel',
               formData,

@@ -753,7 +753,6 @@ export default {
     saveData() {
       let me = this
       let bookingData = {}
-      debugger
 
       var so_luong = me.bookingRoomData.TimeSlots.split(',').length
       var amount = (so_luong ? so_luong : 0) * 25000
@@ -762,7 +761,6 @@ export default {
 
       if (me.popupMode == Enum.PopupMode.AddMode) {
         try {
-          debugger
           if (localStorage.roleOption == '10') {
             me.bookingRoomData.statusBooking = 4
             me.bookingRoomData.orderId = newGUID
@@ -936,7 +934,6 @@ export default {
       })
     },
     openPopup(url) {
-      debugger
       const width = 800
       const height = 800
       const left = (window.innerWidth - width) / 2

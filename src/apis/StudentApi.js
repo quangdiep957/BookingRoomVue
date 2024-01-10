@@ -46,7 +46,7 @@ class StudentsAPI {
    * @Createdby: bqdiep
    */
   async getPaging(param) {
-    return await BaseAPIConfig.post(`${this.controller}/paging`, param)
+    return await BaseAPIConfig.post(`${this.controller}/pagingStudent`, param)
   }
 
   /**

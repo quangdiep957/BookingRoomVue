@@ -105,6 +105,12 @@ const mutations = {
     state.dataDepartment = data
   },
   /**
+   * Gán lại dữ liệu lớp
+   */
+  loadDataClassv1(state, data) {
+    state.dataClass = data
+  },
+  /**
    * Gán lại dữ liệu vai trò
    */
   loadDataRoles(state, data) {
@@ -188,8 +194,22 @@ const actions = {
   /**
    * Thực hiện gọi api lấy toàn bộ dữ liệu lớp
    */
+  async loadDataClassv1({ commit }) {
+    await ClassApi.getAll().then(
+      (res) => {
+        commit('loadDataClassv1', res.data)
+      },
+      (err) => {
+        console.log(err)
+      },
+    )
+  },
+
+  /**
+   * Thực hiện gọi api lấy toàn bộ dữ liệu lớp
+   */
   async loadDataSubject({ commit }) {
-    await SubjectApi.getClassActive().then(
+    await SubjectApi.getAll().then(
       (res) => {
         commit('loadDataSubject', res.data)
       },

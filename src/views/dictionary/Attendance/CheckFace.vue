@@ -1,65 +1,136 @@
 <template>
   <div class="container">
     <div class="video-container">
+      <el-tooltip content="Đóng" placement="bottom">
+        <div
+          class="misa-icon misa-icon-close misa-icon-24 mgl-8p icon-face"
+          @click="onCloseForm"
+        ></div>
+      </el-tooltip>
       <div class="label-face">NHẬN DIỆN ĐIỂM DANH KHUÔN MẶT</div>
       <div class="time-overlay">{{ currentDateTime }} | {{ vietnamDate }}</div>
       <video ref="videoRef" width="400" height="530" autoplay></video>
       <canvas v-show="isRef" ref="canvasRef" width="400" height="300"></canvas>
-      <div class="message">
+      <div class="message_a" v-if="showMessage">
         <div class="image">
           <div class="circle-container">
             <!-- Thẻ hiển thị ảnh -->
-            <img
-              src="https://scontent.fhan2-3.fna.fbcdn.net/v/t39.30808-1/328757794_1112407446106690_19946984874272453_n.jpg?stp=cp6_dst-jpg_p320x320&_nc_cat=107&ccb=1-7&_nc_sid=5740b7&_nc_ohc=5HjhHbb8y9AAX9KvYsw&_nc_ht=scontent.fhan2-3.fna&oh=00_AfB0OHt0NMqHUwjNUywHicPFcluWaCmYBIiFrwcq08EX8A&oe=658405DB"
-              alt="Mô tả ảnh"
-            />
+            <img :src="imageUrl" alt="Mô tả ảnh" />
           </div>
         </div>
 
         <div class="time-overlay-susscess">
           {{ vietnamDate }} | {{ currentDateTime }}
-          <div class="fullname-face fw300">Bùi Quang Điệp</div>
-          <div class="info-face fw300">19810310355 - D14CNPM3</div>
+          <div class="fullname-face fw300">{{ mesageSusscess.FullName }}</div>
+          <div class="info-face fw300">
+            {{ mesageSusscess.StudentCode }} - {{ mesageSusscess.ClassCode }}
+          </div>
+        </div>
+      </div>
+      <div class="message" v-if="showMessageError && mesageSusscess.Error">
+        <div class="time-overlay-susscess">
+          <div class="fullname-face fw300">{{ mesageSusscess.Error }}</div>
         </div>
       </div>
     </div>
 
     <div class="controls">
       <!-- <input type="file" @change="handleImageUpload" accept="image/*" /> -->
-      <input type="text" v-model="StudentCode" placeholder="Mã Sinh Viên" />
+      <input
+        type="text"
+        v-model="StudentCode"
+        placeholder="Mã Sinh Viên"
+        v-if="modeCheck == 'Register'"
+      />
 
       <div class="button-group">
-        <button @click="sendImgLogin">Điểm danh</button>
-        <button @click="registerNewUserUpload">Đăng Ký khuôn mặt</button>
+        <DxButton
+          v-if="modeCheck == 'Register'"
+          class="mgr-15"
+          :width="130"
+          text="Đăng Ký"
+          type="default"
+          @click="registerNewUser"
+        />
       </div>
     </div>
   </div>
+  <BaseLoading :isShowLoading="isShowLoading"></BaseLoading>
 </template>
-
 <script>
 import axios from 'axios'
-
+import { getDownloadURL, ref as storageRef } from 'firebase/storage'
+import { DxButton } from 'devextreme-vue/button'
+import { storage } from '@/firebaseConfig' // Thay đổi đường dẫn tới firebase.js
+import BaseLoading from '@/components/base/BaseLoading.vue'
 export default {
   data() {
     return {
       videoRef: null,
       canvasRef: null,
       StudentCode: '',
-      currentDateTime: '',
+      currentDateTime: new Date(),
       vietnamDate: new Date(),
+      dataCache: [],
+      mesageSusscess: {},
+      showMessageError: false,
+      imageUrl: '',
+      showMessage: false,
+      callLogin: true,
+      isShowLoading: false,
     }
   },
+  components: {
+    DxButton,
+    BaseLoading,
+  },
   created() {
+    this.updateCurrentDateTime()
     // Chuyển đổi sang múi giờ Việt Nam (UTC+7)
     const options = { timeZone: 'Asia/Ho_Chi_Minh' }
     this.vietnamDate = new Intl.DateTimeFormat('en-US', options).format(
       new Date(),
     )
   },
+  watch: {
+    dataCheckSuccess(newVal) {
+      // Đường dẫn trên Firebase Storage đến ảnh bạn muốn tải
+      const storagePath = `face/person/${newVal[0].StudentCode}`
+      const imageRef = storageRef(storage, storagePath)
+
+      // Lấy URL tải về ảnh khi component được mounted
+      getDownloadURL(imageRef)
+        .then((url) => {
+          this.imageUrl = url
+        })
+        .catch((error) => {
+          console.error('Error getting download URL:', error)
+        })
+      // Xử lý khi prop dataCheckSuccess thay đổi
+      this.mesageSusscess.FullName = newVal[0].FullName
+      this.mesageSusscess.ClassCode = newVal[0].ClassCode
+      this.mesageSusscess.StudentCode = newVal[0].StudentCode
+
+      // Thiết lập showMessage thành true sau 3 giây
+      setTimeout(() => {
+        this.showMessage = true
+
+        // Đặt lại showMessage thành false sau thêm 3 giây
+        setTimeout(() => {
+          this.showMessage = false
+        }, 5000)
+      }, 5000)
+    },
+  },
   mounted() {
+    debugger
+    // Nếu có thay đổi thì show thông tin lên
     this.videoRef = this.$refs.videoRef
     this.canvasRef = this.$refs.canvasRef
-    // this.captureInterval = setInterval(this.sendImgLogin, 1000) // Capture image every 5 seconds
+    // tự động lấy ảnh theo mode điểm danh hoặc đăng ký khuôn mặt
+    if (this.modeCheck == 'Login') {
+      this.captureInterval = setInterval(this.sendImgLogin, 5000)
+    }
     setInterval(this.updateCurrentDateTime, 1000)
 
     // Call setupWebcam when the component is mounted
@@ -73,8 +144,20 @@ export default {
     dataStudent: {
       type: Array,
     },
+    dataCheckSuccess: {
+      type: Array,
+    },
+    modeCheck: {
+      type: String,
+    },
   },
   methods: {
+    /** Mô tả: Gửi sự kiện đóng form
+     * CreatedBy: bqdiep
+     */
+    onCloseForm() {
+      this.$emit('onCloseForm')
+    },
     updateCurrentDateTime() {
       const now = new Date()
       const options = {
@@ -98,6 +181,8 @@ export default {
       }
     },
     async sendImgLogin() {
+      this.showLoading(true)
+      this.mesageSusscess.Error = ''
       if (this.videoRef && this.canvasRef) {
         const context = this.canvasRef.getContext('2d')
         context.drawImage(this.videoRef, 0, 0, 400, 300)
@@ -117,8 +202,6 @@ export default {
                 'Content-Type': 'multipart/form-data',
               },
             })
-            // Dừng gọi api
-            clearInterval(this.captureInterval)
             if (response.data.match_status) {
               // alert('Welcome back ' + response.data.user + ' !')
               // lấy thông tin cập nhật vào db
@@ -127,20 +210,55 @@ export default {
                 let student = this.dataStudent.filter(
                   (x) => x.StudentCode === response.data.user,
                 )
-                student[0].Status = true
+                if (student[0]) {
+                  // lưu vào danh sách nếu nó điểm danh rồi thì thôi
+                  student[0].Status = true
+                  // Gửi thông tin cập nhật điểm danh
+                  this.$emit('InsertFace', student.slice(0, 1))
+                  this.showLoading(false)
+                } else {
+                  // Thiết lập showMessage thành true sau 3 giây
+                  setTimeout(() => {
+                    this.showMessageError = true
 
-                this.$emit('InsertFace', student)
+                    // Đặt lại showMessage thành false sau thêm 3 giây
+                    setTimeout(() => {
+                      this.showMessageError = false
+                    }, 5000)
+                  }, 5000)
+                  this.mesageSusscess.Error = 'Sinh viên không thuộc lớp này!'
+                  this.showLoading(false)
+                }
               }
             } else {
-              alert('Không tìm thấy khuôn mặt!')
+              this.showLoading(false)
+              // Thiết lập showMessage thành true sau 3 giây
+              setTimeout(() => {
+                this.showMessageError = true
+
+                // Đặt lại showMessage thành false sau thêm 3 giây
+                setTimeout(() => {
+                  this.showMessageError = false
+                }, 5000)
+              }, 5000)
+              this.mesageSusscess.Error = 'Không tìm thấy khuôn mặt!'
             }
           } catch (error) {
+            this.showLoading(false)
             console.error('Có lỗi xảy ra:', error)
           }
         })
       }
     },
-    loginUpload() {
+    /**
+     * Mô tả : Hàm show/hide loading
+     * @param {Boolean} isShow true: hiển thị loading, false: ẩn loading
+     * @Createdby: bqdiep
+     */
+    showLoading(isShow) {
+      this.isShowLoading = isShow
+    },
+    async loginUpload() {
       if (this.uploadedImage) {
         let apiUrl = 'http://127.0.0.1:8000/login'
         const file = this.dataURLtoFile(
@@ -149,32 +267,53 @@ export default {
         )
         const formData = new FormData()
         formData.append('file', file)
-        axios
-          .post(apiUrl, formData, {
+        try {
+          const response = await axios.post(apiUrl, formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
           })
-          .then((response) => {
-            console.log(response.data)
-            if (response.data.match_status) {
-              // alert('Welcome back ' + response.data.user + ' !')
-              // lấy thông tin cập nhật vào db
-              if (this.dataStudent) {
-                // Lấy thông tin của sinh viên điểm danh thành công
-                let student = this.dataStudent.find(
-                  (x) => x.StudentCode === response.data.user,
-                )
-                this.$emit('InsertFace', student)
+          if (response.data.match_status) {
+            // alert('Welcome back ' + response.data.user + ' !')
+            // lấy thông tin cập nhật vào db
+            if (this.dataStudent) {
+              // Lấy thông tin của sinh viên điểm danh thành công
+              let student = this.dataStudent.filter(
+                (x) => x.StudentCode === response.data.user,
+              )
+              if (student[0]) {
+                // lưu vào danh sách nếu nó điểm danh rồi thì thôi
+                student[0].Status = true
+                // Gửi thông tin cập nhật điểm danh
+                this.$emit('InsertFace', student.slice(0, 1))
+              } else {
+                // Thiết lập showMessage thành true sau 3 giây
+                setTimeout(() => {
+                  this.mesageSusscess.Error = 'Sinh viên không thuộc lớp này!'
+                  this.showMessageError = true
+
+                  // Đặt lại showMessage thành false sau thêm 3 giây
+                  setTimeout(() => {
+                    this.showMessageError = false
+                  }, 5000)
+                }, 5000)
               }
-              // Nếu đăng nhập thành công gọi api lấy dữ liệu của sinh viên đó và cập nhật vào lớp học
-            } else {
-              alert('Unknown user! Please try again or register a new user!')
             }
-          })
-          .catch((error) => {
-            console.error('Error sending image to API:', error)
-          })
+          } else {
+            // Thiết lập showMessage thành true sau 3 giây
+            setTimeout(() => {
+              this.showMessageError = true
+
+              // Đặt lại showMessage thành false sau thêm 3 giây
+              setTimeout(() => {
+                this.showMessageError = false
+              }, 5000)
+            }, 5000)
+            this.mesageSusscess.Error = 'Không tìm thấy khuôn mặt!'
+          }
+        } catch (error) {
+          console.error('Có lỗi xảy ra:', error)
+        }
       }
     },
     registerNewUserUIpload() {
@@ -238,12 +377,14 @@ export default {
         context.drawImage(this.videoRef, 0, 0, 400, 300)
 
         this.canvasRef.toBlob((blob) => {
-          const apiUrl = 'http://127.0.0.1:8000/register_new_user' // Replace with your actual API base URL
+          let apiUrl = 'http://127.0.0.1:8000/register_new_user' // Replace with your actual API base URL
           const file = new File([blob], 'webcam-frame.png', {
             type: 'image/png',
           })
           const formData = new FormData()
           formData.append('file', file)
+          const text = this.StudentCode // Lấy mã sinh viên khi đăng ký
+          apiUrl += `?text=${text}`
           axios
             .post(apiUrl, formData, {
               headers: {
@@ -276,7 +417,7 @@ export default {
   top: 50%;
   border-radius: 10px;
   box-shadow: 13px 13px 26px #dedede, -13px -13px 26px #ffffff;
-  z-index: 9999;
+  z-index: 2000;
   left: 50%;
   width: 535px;
   background-image: url(./noel2.png) !important; /* Đường dẫn đến hình ảnh */
@@ -334,7 +475,7 @@ button {
 .label-face {
   text-align: center;
 }
-.message {
+.message_a {
   width: 95%;
   position: absolute;
   bottom: 25px;
@@ -364,5 +505,9 @@ button {
   width: 100%; /* Ảnh sẽ lấp đầy hình tròn */
   height: auto; /* Duy trì tỷ lệ khung hình */
   display: block; /* Loại bỏ dư thừa khoảng trắng dưới ảnh */
+}
+.icon-face {
+  position: absolute;
+  right: -50px;
 }
 </style>

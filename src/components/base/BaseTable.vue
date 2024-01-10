@@ -19,9 +19,9 @@
             cell-template="cellTemplateCustom"
             :visible="item.visible"
             :format="item.format"
-            :dataType="item.dataType"
+            :data-type="item.dataType"
             :calculate-cell-value="item.calculateCellValue"
-            alignment="left"
+            :alignment="item.alignment"
           />
         </template>
         <!-- Thêm cột checkbox mới -->
@@ -33,7 +33,7 @@
           cell-template="checkboxCellTemplate"
         />
         <template #checkboxCellTemplate="{ data }">
-          <input type="checkbox" v-model="data.value" @change="demo(data)" />
+          <el-checkbox v-model="data.value" @change="demo(data)" />
         </template>
         <template #cellTemplateCustom="{ data }">
           <slot name="baseCell" :data="data"></slot>

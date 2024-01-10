@@ -102,6 +102,11 @@ export default [
       },
       {
         component: 'CNavItem',
+        name: 'Sinh viên',
+        to: '/dictionary/student',
+      },
+      {
+        component: 'CNavItem',
         name: 'Vai trò',
         to: '/dictionary/role',
       },

@@ -49,10 +49,7 @@
             <div class="flex">
               {{ data[optionName] }}
 
-              <div
-                class="div"
-                v-if="selectedItem[optionValue] == data[optionValue]"
-              >
+              <div class="div">
                 <slot></slot>
               </div>
             </div>
@@ -142,6 +139,10 @@ export default {
       default: false,
     },
     classParent: {
+      type: Boolean,
+      default: false,
+    },
+    showTooltip: {
       type: Boolean,
       default: false,
     },
