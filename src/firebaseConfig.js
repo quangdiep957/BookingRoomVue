@@ -1,10 +1,20 @@
-export default {
-  apiKey: 'AIzaSyB0iOx1ICA1S-OUpm6fQqfbEka7jitr7Sc',
-  authDomain: 'bookingroom-df747.firebaseapp.com',
-  databaseURL: 'https://bookingroom-df747-default-rtdb.firebaseio.com',
-  projectId: 'bookingroom-df747',
-  storageBucket: 'bookingroom-df747.appspot.com',
-  messagingSenderId: '186825380982',
-  appId: '1:186825380982:web:b515c65d21ae5d7ab97b57',
-  measurementId: 'G-TF7VRLHHW6',
+// firebase.js
+
+import { initializeApp } from 'firebase/app'
+import { getStorage } from 'firebase/storage'
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyAlL9NgTsOCW3ZFzRBqufXu_0GuiVdgP-M',
+  authDomain: 'bookingroom-7b732.firebaseapp.com',
+  databaseURL: 'https://bookingroom-7b732-default-rtdb.firebaseio.com',
+  projectId: 'bookingroom-7b732',
+  storageBucket: 'bookingroom-7b732.appspot.com',
+  messagingSenderId: '353974511157',
+  appId: '1:353974511157:web:0b803386e2408e8c08b37c',
+  measurementId: 'G-R165PEW8SQ',
 }
+
+const firebaseApp = initializeApp(firebaseConfig)
+const storage = getStorage(firebaseApp)
+
+export { storage }

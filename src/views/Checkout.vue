@@ -49,7 +49,6 @@ export default {
   components: {},
   setup() {
     const goBack = () => {
-      debugger
       // Quay trở lại trang trước đó
       window.location.href = 'http://localhost:8080/'
     }

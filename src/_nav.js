@@ -32,6 +32,12 @@ export default [
     icon: 'cil-pencil',
   },
   {
+    component: 'CNavItem',
+    name: 'Giảng viên đặt lịch',
+    to: '/booking/lecturer',
+    icon: 'cil-pencil',
+  },
+  {
     component: 'CNavTitle',
     name: 'Danh mục',
   },
@@ -45,6 +51,11 @@ export default [
         component: 'CNavItem',
         name: 'Phòng học',
         to: '/dictionary/room',
+      },
+      {
+        component: 'CNavItem',
+        name: 'Môn học',
+        to: '/dictionary/subject',
       },
       // {
       //   component: 'CNavItem',
@@ -66,6 +77,11 @@ export default [
         name: 'Thiết bị',
         to: '/dictionary/equipment',
       },
+      {
+        component: 'CNavItem',
+        name: 'Lớp học',
+        to: '/dictionary/class',
+      },
       // {
       //   component: 'CNavItem',
       //   name: 'Loại thiết bị',
@@ -86,6 +102,11 @@ export default [
       },
       {
         component: 'CNavItem',
+        name: 'Sinh viên',
+        to: '/dictionary/student',
+      },
+      {
+        component: 'CNavItem',
         name: 'Vai trò',
         to: '/dictionary/role',
       },
@@ -93,6 +114,19 @@ export default [
         component: 'CNavItem',
         name: 'Khoa',
         to: '/dictionary/department',
+      },
+    ],
+  },
+
+  {
+    component: 'CNavTitle',
+    name: 'Chức năng khác',
+    icon: 'cil-user',
+    items: [
+      {
+        component: 'CNavItem',
+        name: 'Điểm danh',
+        to: '/attendance/attendance',
       },
     ],
   },

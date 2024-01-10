@@ -601,12 +601,12 @@ export default {
 }
 
 .schedule-table td {
-  border: 1px solid #ddd;
+  outline: 1px solid #ddd;
   padding: 8px;
   text-align: center;
 }
 .schedule-table th {
-  border-bottom: 1px solid #ddd;
+  outline: 1px solid #ddd;
   border-top: none;
   border-left: 1px solid #ddd;
   padding: 8px;
@@ -618,6 +618,7 @@ export default {
   padding: 0px;
   min-width: 159px;
   z-index: 0;
+  outline: 1px solid #ddd;
 }
 
 .schedule-table td :hover {
@@ -813,6 +814,7 @@ thead {
   top: 0;
   background-color: #fff;
   border-top: none;
+  outline: 1px solid #ddd;
 }
 .sticky {
   position: sticky;

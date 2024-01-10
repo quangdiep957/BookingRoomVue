@@ -1,7 +1,11 @@
 <template>
   <div
     class="dx-field-value misa-selectbox flex"
-    :class="{ 'misa-input-required': error != '', tooltip: error != '' }"
+    :class="{
+      'misa-input-required': error != '',
+      tooltip: error != '',
+      'misa-input-Parent': classParent != false,
+    }"
   >
     <div class="lable-input t-title-lable flex" v-if="lable">
       {{ lable }}
@@ -45,10 +49,7 @@
             <div class="flex">
               {{ data[optionName] }}
 
-              <div
-                class="div"
-                v-if="selectedItem[optionValue] == data[optionValue]"
-              >
+              <div class="div">
                 <slot></slot>
               </div>
             </div>
@@ -137,6 +138,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    classParent: {
+      type: Boolean,
+      default: false,
+    },
+    showTooltip: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -220,6 +229,10 @@ export default {
   font-size: 14px;
   width: 30%;
   padding-top: 5px;
+}
+.misa-input-Parent {
+  margin-left: 15px;
+  width: 220px !important;
 }
 
 .tooltip:hover:after {

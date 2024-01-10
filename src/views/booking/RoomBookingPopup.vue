@@ -130,7 +130,7 @@
 
             <div class="t-row">
               <BaseSelectTagBox
-                lable="Chọn ca học"
+                lable="Chọn tiết học"
                 :dataSource="dataTime"
                 :height="34"
                 :tabindex="5"
@@ -138,7 +138,7 @@
                 classDropdownbox="drop-down-utc"
                 optionName="TimeSlotName"
                 optionValue="TimeSlotID"
-                placeholder="Chọn 1 hoặc nhiều ca học"
+                placeholder="Chọn 1 hoặc nhiều tiết học"
                 @onOptionChange="onValueChangeTimeSlot"
                 :value="lstTime"
                 @handleBlurInput="validate('TimeSlots')"
@@ -148,7 +148,33 @@
               >
               </BaseSelectTagBox>
             </div>
-
+            <div class="t-row">
+              <BaseDropdownCheckBox
+                lable="Chọn tiết học"
+                :dataSource="dataTime"
+                :height="34"
+                :tabindex="5"
+                :required="true"
+                classDropdownbox="drop-down-utc"
+                optionName="TimeSlotName"
+                optionValue="TimeSlotID"
+                placeholder="Chọn 1 hoặc nhiều tiết học"
+                @onOptionChange="onValueChangeTimeSlot"
+                :value="lstTime"
+                @handleBlurInput="validate('TimeSlots')"
+                @handleKeyupInput="removeError('TimeSlots')"
+                :error="Error['TimeSlots']"
+                :isDisable="isDisable || !isUserBooking"
+              >
+              </BaseDropdownCheckBox>
+            </div>
+            <div class="t-row">
+              <BaseRadio
+                lable="Đăng ký theo"
+                @onOptionChangeCheckBox="onOptionChangeCheckBox"
+              >
+              </BaseRadio>
+            </div>
             <div class="t-row flex" style="height: 120px">
               <div class="t-lable-texarea">Lý do đặt</div>
               <div class="content-reson">
@@ -345,11 +371,13 @@
 <script>
 import BookingRoomApi from '@/apis/BookingRoomApi'
 import BaseDropdownbox from '@/components/base/BaseDropdownbox.vue'
+import BaseDropdownCheckBox from '@/components/base/BaseDropdownCheckBox.vue'
 import BaseInput from '@/components/base/BaseInput.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BasePopup from '@/components/base/BasePopup.vue'
 import axios from 'axios'
 import BaseSelectTagBox from '@/components/base/BaseSelectTagBox.vue'
+import BaseRadio from '@/components/base/BaseRadio.vue'
 import { mapActions, mapState } from 'vuex'
 import Enum from '@/commons/Enum'
 import Resource from '@/commons/Resource'
@@ -372,6 +400,8 @@ export default {
     BaseDate,
     ConfirmRefuseProcess,
     BaseLoading,
+    BaseRadio,
+    BaseDropdownCheckBox,
   },
   emits: ['onCloseForm', 'onLoadData', 'onShowLoading'],
   props: {
@@ -485,45 +515,21 @@ export default {
      * @param {*} value
      * bqdiep
      */
+    onOptionChangeCheckBox(e) {
+      if (e) {
+        this.bookingRoomData.checkMultiBooking = e
+      } else {
+        this.bookingRoomData.checkMultiBooking = '1'
+      }
+    },
+    /**
+     * Sự kiện thay đổi ca học
+     * @param {*} value
+     * bqdiep
+     */
     onValueChangeTimeSlot(values) {
       if (values) {
-        // var dates = []
         let ids = ''
-        // let year = this.bookingRoomData.StartDate.getYear()
-        // let month = this.bookingRoomData.StartDate.getMonth() + 1
-        // let day = this.bookingRoomData.StartDate.getDate()
-        // for (let i = 0; i < values.length; i++) {
-        //   let time = this.dataTime.find(
-        //     (x) => x.TimeSlotID == values[i].TimeSlotID,
-        //   )
-        //   switch (time.TimeSlotName) {
-        //     case 1:
-        //       dates.push(new Date(year, month, day, 7))
-        //       break
-        //     case 2:
-        //       dates.push(new Date(year, month, day, 9, 35))
-        //       break
-        //     case 3:
-        //       dates.push(new Date(year, month, day, 13))
-        //       break
-        //     case 4:
-        //       dates.push(new Date(year, month, day, 15, 35))
-
-        //       break
-        //     case 5:
-        //       dates.push(new Date(year, month, day, 18, 5))
-        //       break
-        //     default:
-        //       break
-        //   }
-        // }
-        // dates.forEach((element) => {
-        //   if (new Date() > new Date(element)) {
-        //     this.Error['TimeSlots'] = 'Đã quá thời gian đặt'
-        //     this.validateErrorList.push('TimeSlots')
-        //     return
-        //   }
-        // })
         values?.forEach((element) => {
           ids += '' + element.TimeSlotID.trim() + ','
         })
@@ -646,7 +652,7 @@ export default {
           if (fieldName == 'RoomID') {
             field = 'Phòng'
           } else if (fieldName == 'TimeSlots') {
-            field = 'Ca học'
+            field = 'Tiết học'
           } else if (fieldName == 'Subject') {
             field = 'Tiêu đề'
           } else if (fieldName == 'Quantity') {
@@ -684,8 +690,6 @@ export default {
     saveData() {
       let me = this
       let bookingData = {}
-      debugger
-
       var so_luong = me.bookingRoomData.TimeSlots.split(',').length
       var amount = (so_luong ? so_luong : 0) * 25000
       const newGUID = this.generateGUID()
@@ -693,7 +697,6 @@ export default {
 
       if (me.popupMode == Enum.PopupMode.AddMode) {
         try {
-          debugger
           if (localStorage.roleOption == '10') {
             me.bookingRoomData.statusBooking = 4
             me.bookingRoomData.orderId = newGUID
@@ -866,7 +869,6 @@ export default {
       })
     },
     openPopup(url) {
-      debugger
       const width = 800
       const height = 800
       const left = (window.innerWidth - width) / 2

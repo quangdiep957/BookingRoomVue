@@ -19,18 +19,28 @@
             cell-template="cellTemplateCustom"
             :visible="item.visible"
             :format="item.format"
-            :dataType="item.dataType"
+            :data-type="item.dataType"
             :calculate-cell-value="item.calculateCellValue"
-            alignment="left"
+            :alignment="item.alignment"
           />
         </template>
-
+        <!-- Thêm cột checkbox mới -->
+        <DxColumn
+          v-if="showCheckbox"
+          dataField="Status"
+          caption="Điểm danh"
+          :width="100"
+          cell-template="checkboxCellTemplate"
+        />
+        <template #checkboxCellTemplate="{ data }">
+          <el-checkbox v-model="data.value" @change="demo(data)" />
+        </template>
         <template #cellTemplateCustom="{ data }">
           <slot name="baseCell" :data="data"></slot>
         </template>
         <DxPaging :enabled="false" />
-
         <DxEditing
+          v-if="isShowMode"
           :allow-updating="allowUpdating"
           :allow-adding="allowAdding"
           :allow-deleting="allowDelete"
@@ -72,6 +82,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    showCheckbox: {
+      type: Boolean,
+      default: false,
+    },
 
     /**Mảng chứa option Header của table */
     optionItems: {
@@ -81,6 +95,10 @@ export default {
     /**mảng chứa data table */
     dataSource: {
       typeo: Array,
+    },
+    isShowMode: {
+      type: Boolean,
+      default: true,
     },
 
     /**Tên class của table */
@@ -92,7 +110,17 @@ export default {
       Enum: Enum,
     }
   },
-  methods: {},
+  methods: {
+    demo(data) {
+      var newVal = data.key.StudentCode
+      this.dataSource.forEach((element) => {
+        if (element.StudentCode === newVal) {
+          element.Status = data.value
+        }
+      })
+      this.$emit('CellValueChanged', this.dataSource)
+    },
+  },
 }
 </script>
 <style scoped>
