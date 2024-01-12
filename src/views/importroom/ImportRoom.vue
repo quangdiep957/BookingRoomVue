@@ -458,7 +458,7 @@ export default {
             const userID = JSON.parse(localStorage.getItem('user')).UserID
             formData.append('userID', userID);
             const response = await axios.post(
-              'http://localhost:5081/api/v1/BookingRooms/excel',
+              'http://bookingroom.click/api/v1/BookingRooms/excel',
               formData,
               {
                 headers: {

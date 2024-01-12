@@ -81,7 +81,7 @@ export default {
     if (this.Result.vnp_TransactionStatus == '00') {
       axios
         .post(
-          `http://localhost:5081/api/v1/BookingRooms/UpdateBookingPayment/${this.Result.vnp_OrderInfo}`,
+          `http://bookingroom.click/api/v1/BookingRooms/UpdateBookingPayment/${this.Result.vnp_OrderInfo}`,
           {
             orderId: this.Result.vnp_OrderInfo,
           },

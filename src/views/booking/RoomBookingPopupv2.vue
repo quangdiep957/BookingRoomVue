@@ -524,7 +524,7 @@ export default {
     async beforeViewReport() {
       let me = this
       this.showLoading(true)
-      let url = `http://localhost:5081/api/v1/BookingRooms/PrintReport/${me.bookingRoomData.BookingRoomID}`
+      let url = `http://bookingroom.click/api/v1/BookingRooms/PrintReport/${me.bookingRoomData.BookingRoomID}`
       const response = await axios.get(url, {
         headers: {
           'Content-Type': 'application/json',
@@ -800,7 +800,7 @@ export default {
                     }
                     axios
                       .post(
-                        'http://localhost:5081/api/v1/VNPay/GetUrlCreatePayment',
+                        'http://bookingroom.click/api/v1/VNPay/GetUrlCreatePayment',
                         paramVnPay,
                       )
                       .then((resUrl) => {
