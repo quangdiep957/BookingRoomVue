@@ -280,7 +280,6 @@ export default {
       await this.getData()
     },
     async onValueChangeBooking(value) {
-      debugger
       this.filterOption.BookingRoomID = value ? value : null
       this.showLoading(true)
       await this.getData()

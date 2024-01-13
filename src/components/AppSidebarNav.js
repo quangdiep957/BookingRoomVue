@@ -58,7 +58,6 @@ const AppSidebarNav = defineComponent({
     })
 
     const renderItem = (item) => {
-      debugger
       if (item.to === '/dashboard') {
         return null
       }
