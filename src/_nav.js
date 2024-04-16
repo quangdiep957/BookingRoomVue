@@ -21,6 +21,12 @@ export default [
   },
   {
     component: 'CNavItem',
+    name: 'Giảng viên đặt lịch',
+    to: '/booking/lecturer',
+    icon: 'cil-calendar',
+  },
+  {
+    component: 'CNavItem',
     name: 'Chờ duyệt',
     to: '/booking/booking-await',
     icon: 'cil-task',
@@ -29,12 +35,6 @@ export default [
     component: 'CNavItem',
     name: 'Lịch sử đặt phòng',
     to: '/booking/booking-history',
-    icon: 'cil-pencil',
-  },
-  {
-    component: 'CNavItem',
-    name: 'Giảng viên đặt lịch',
-    to: '/booking/lecturer',
     icon: 'cil-pencil',
   },
   {

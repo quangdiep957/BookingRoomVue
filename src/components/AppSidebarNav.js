@@ -62,15 +62,28 @@ const AppSidebarNav = defineComponent({
         return null
       }
       if (
-        item.name == 'Danh mục' &&
+        item.to === '/booking/booking-room' &&
         localStorage.getItem('roleOption') - 0 === 1
       ) {
         return null
       }
       if (
-        (item.name == 'Danh mục' || item.name == 'Chức năng khác') &&
+        item.name == 'Danh mục' &&
+        (localStorage.getItem('roleOption') - 0 === 1 ||
+          localStorage.getItem('roleOption') - 0 === 10)
+      ) {
+        return null
+      }
+      if (
+        item.name == 'Chức năng khác' &&
         localStorage.getItem('roleOption') - 0 !== 1 &&
         localStorage.getItem('roleOption') - 0 !== 2
+      ) {
+        return null
+      }
+      if (
+        item.to == '/booking/lecturer' &&
+        localStorage.getItem('roleOption') - 0 === 10
       ) {
         return null
       }
@@ -83,7 +96,8 @@ const AppSidebarNav = defineComponent({
 
       if (
         item.to == '/dictionary' &&
-        localStorage.getItem('roleOption') - 0 === 1
+        (localStorage.getItem('roleOption') - 0 === 1 ||
+          localStorage.getItem('roleOption') - 0 === 10)
       ) {
         return null // Return null to hide the item
       }

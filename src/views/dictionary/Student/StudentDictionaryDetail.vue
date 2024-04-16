@@ -368,6 +368,7 @@ export default {
         console.log(error)
       }
     },
+
     /**
      * Xóa bỏ lỗi
      * @param {String} fieldName
@@ -376,6 +377,29 @@ export default {
       if (this.student[fieldName]) {
         this.Error[fieldName] = ''
       }
+    },
+
+    /**
+     * Lấy đối tượng user theo khóa chính
+     * bqdiep 1/05/2023
+     */
+    getStudentByID() {
+      debugger
+      StudentApi.getByID(this.studentID).then((res) => {
+        if (res) {
+          let data = res.data
+          this.student = {
+            StudentID: data.StudentID,
+            StudentCode: data.StudentCode,
+            FullName: data.FullName,
+            Email: data.Email,
+            PhoneNumber: data.PhoneNumber,
+            Address: data.Address,
+            ClassID: data.ClassID,
+            DepartmentID: data.DepartmentID,
+          }
+        }
+      })
     },
     /**
      * Lưu dữ liệu

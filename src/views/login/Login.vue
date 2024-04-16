@@ -80,6 +80,15 @@
                   @click="handleSubmit"
                   classButton="misa-button-normal w-120 misa-button-primary "
                 ></BaseButton>
+
+                <BaseButton
+                  class="mgt-16"
+                  :use-submit-behavior="true"
+                  :tabindex="3"
+                  lableButton="Đăng"
+                  @click="demo"
+                  classButton="misa-button-normal w-120 misa-button-primary "
+                ></BaseButton>
                 <BaseButton
                   class="mgt-16"
                   :use-submit-behavior="true"
@@ -139,6 +148,7 @@ import DxTextBox from 'devextreme-vue/text-box'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseLoading from '@/components/base/BaseLoading.vue'
 import ObjectFunction from '@/commons/CommonFuction'
+import axios from 'axios'
 import Resource from '@/commons/Resource'
 export default {
   components: {
@@ -215,6 +225,27 @@ export default {
         this.error = 'Tên đăng nhập hoặc mật khẩu không đúng!'
         // console.error(error)
         // Hiển thị thông báo lỗi đăng nhập
+      }
+    },
+
+    async demo() {
+      try {
+        debugger
+        const apiUrl =
+          'https://bill.payoo.vn/tra-tien-thanh-toan-hoa-don-dien-evn/danh-sach-hoa-don'
+        const formData = new FormData()
+        formData.append('SearchId', 'PB08050085583')
+        formData.append('Capcha', 'MJObR')
+        formData.append('SessionKey', '6e283c3b0f9f4b148aa17d48025aed1a')
+
+        const response = await axios.post(apiUrl, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        console.log(response)
+      } catch (error) {
+        console.log(error)
       }
     },
     generateRandomCode() {

@@ -72,7 +72,7 @@
     :popupMode="dataComponent.popupMode"
     @onLoadData="getData()"
     @onShowLoading="showLoading(true)"
-    :ID="JSON.parse(JSON.stringify(dataComponent.studentID))"
+    :studentID="JSON.parse(JSON.stringify(dataComponent.studentID))"
   />
 
   <!-- Begin popup delete -->
@@ -180,23 +180,15 @@ export default {
       },
       {
         dataField: 'StudentCode',
-        caption: 'Mã sInh viên',
+        caption: 'Mã sinh viên',
       },
       {
         dataField: 'FullName',
         caption: 'Tên sinh viên',
       },
       {
-        dataField: 'DepartmentName',
-        caption: 'Phòng ban',
-      },
-      {
         dataField: 'PhoneNumber',
         caption: 'Số điện thoại',
-      },
-      {
-        dataField: 'RoleName',
-        caption: 'Vai trò',
       },
       {
         dataField: 'Email',
@@ -281,6 +273,7 @@ export default {
       dataComponent.popupMode = Enum.PopupMode.AddMode // Gán lại trạng thái của popup
       showFormDetail(true)
     }
+
     /** Mô tả: ẩn popup
      * CreatedBy: bqdiep
      * Created Date: 11-09-2022 08:22:11

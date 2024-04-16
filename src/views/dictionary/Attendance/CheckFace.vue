@@ -123,7 +123,6 @@ export default {
     },
   },
   mounted() {
-    debugger
     // Nếu có thay đổi thì show thông tin lên
     this.videoRef = this.$refs.videoRef
     this.canvasRef = this.$refs.canvasRef

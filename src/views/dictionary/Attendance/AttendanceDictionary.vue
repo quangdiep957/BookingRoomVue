@@ -396,9 +396,8 @@ export default {
     // cập nhật lại ngày khi chọn lại
     async onDateBoxChanged(item) {
       this.filterOption.DateRequest = item.value
-      this.filterOption.BookingRoomID = null
-      await this.getData()
       await this.getDataCombo()
+      await this.getData()
     },
     registerFace() {
       this.isDropdownOpen = false
